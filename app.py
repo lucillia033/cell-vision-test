@@ -18,7 +18,6 @@ IMAGE_DIR = ROOT_DIR / "images"
 
 # =========================================================
 # 2. 소기관 정보
-# 이미지 파일은 모두 PNG 형식
 # =========================================================
 
 ORGANELLES = [
@@ -243,8 +242,8 @@ st.markdown(
         border: 1px solid #284655;
         border-top: 2px solid #426c80;
         padding: 12px;
-        margin-bottom: 10px;
-        min-height: 205px;
+        margin-bottom: 0;
+        min-height: 195px;
     }
 
     .intel-code {
@@ -638,6 +637,7 @@ with right_col:
 
 # =========================================================
 # 8. 소기관 정보 파일
+# 카드 정보 → DATA FILE → 이미지 → 이동 버튼
 # =========================================================
 
 st.markdown(
@@ -660,18 +660,26 @@ for start in range(0, len(ORGANELLES), 3):
 
     for column, organelle in zip(columns, row_items):
         with column:
+            # 소기관 정보 카드
             st.markdown(
                 f"""
                 <div class="intel-card">
-                    <div class="intel-code">{organelle["code"]} // INTELLIGENCE FILE</div>
+                    <div class="intel-code">
+                        {organelle["code"]} // INTELLIGENCE FILE
+                    </div>
                     <div class="intel-name">{organelle["name"]}</div>
-                    <div class="intel-description">{organelle["description"]}</div>
-                    <div class="intel-status">● DATA FILE / BIOLOGICAL</div>
+                    <div class="intel-description">
+                        {organelle["description"]}
+                    </div>
+                    <div class="intel-status">
+                        ● DATA FILE / BIOLOGICAL
+                    </div>
                 </div>
                 """,
                 unsafe_allow_html=True,
             )
 
+            # 이미지
             image_path = IMAGE_DIR / organelle["image"]
 
             if image_path.exists():
@@ -684,12 +692,14 @@ for start in range(0, len(ORGANELLES), 3):
                     f'이미지 파일을 찾을 수 없습니다: images/{organelle["image"]}'
                 )
 
+            # 이미지 바로 아래에 상세 페이지 이동 버튼
             page_path = ROOT_DIR / organelle["page"]
 
             if page_path.exists():
                 st.page_link(
                     organelle["page"],
                     label=f'ACCESS FILE / {organelle["name"]}',
+                    use_container_width=True,
                 )
             else:
                 st.caption(
@@ -730,6 +740,10 @@ for title, description in protocols:
         """,
         unsafe_allow_html=True,
     )
+
+# =========================================================
+# 10. 하단 정보
+# =========================================================
 
 st.markdown(
     """
