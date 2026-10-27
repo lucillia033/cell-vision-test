@@ -2,28 +2,79 @@
 import streamlit as st
 from pathlib import Path
 
-st.set_page_config(page_title="Cell Vision - 리소좀", layout="wide")
+st.set_page_config(
+    page_title="Cell Vision - 리소좀",
+    layout="wide"
+)
+
+# 프로젝트 경로 설정
 ROOT_DIR = Path(__file__).resolve().parent.parent
-IMAGE_PATH = ROOT_DIR / "images" / "lysosome.png"
+IMAGE_DIR = ROOT_DIR / "images"
+IMAGE_PATH = IMAGE_DIR / "lysosome.png"
 
 st.markdown("""
 <style>
-.stApp{background:#101820;color:#F1F5F9}
-[data-testid="stSidebar"]{background:#17232E}
-[data-testid="stHeader"]{background:#101820}
-.block-container{padding-top:2rem;padding-bottom:3rem;max-width:1150px}
-h1,h2,h3{color:#F1F5F9!important}
-p,li,span,label{color:#D9E2EC}
-.overview{background:#17232E;border-left:4px solid #63B3ED;border-radius:8px;padding:18px 22px;line-height:1.8;color:#E2E8F0}
-.article-section{margin-top:30px;line-height:1.9}
-.article-section h2{border-bottom:1px solid #344454;padding-bottom:9px;margin-bottom:15px}
-.article-section h3{color:#90CDF4!important;margin-top:22px;margin-bottom:8px}
-div.stButton>button{background:#233647;color:#F1F5F9;border:1px solid #52677A;border-radius:8px}
-div.stButton>button:hover{background:#304B61;color:#FFF;border-color:#90CDF4}
-hr{border-color:#344454}
+.stApp {
+    background: #101820;
+    color: #F1F5F9;
+}
+[data-testid="stSidebar"] {
+    background: #17232E;
+}
+[data-testid="stHeader"] {
+    background: #101820;
+}
+.block-container {
+    padding-top: 2rem;
+    padding-bottom: 3rem;
+    max-width: 1150px;
+}
+h1, h2, h3 {
+    color: #F1F5F9 !important;
+}
+p, li, span, label {
+    color: #D9E2EC;
+}
+.overview {
+    background: #17232E;
+    border-left: 4px solid #63B3ED;
+    border-radius: 8px;
+    padding: 18px 22px;
+    line-height: 1.8;
+    color: #E2E8F0;
+}
+.article-section {
+    margin-top: 30px;
+    line-height: 1.9;
+}
+.article-section h2 {
+    border-bottom: 1px solid #344454;
+    padding-bottom: 9px;
+    margin-bottom: 15px;
+}
+.article-section h3 {
+    color: #90CDF4 !important;
+    margin-top: 22px;
+    margin-bottom: 8px;
+}
+div.stButton > button {
+    background: #233647;
+    color: #F1F5F9;
+    border: 1px solid #52677A;
+    border-radius: 8px;
+}
+div.stButton > button:hover {
+    background: #304B61;
+    color: #FFFFFF;
+    border-color: #90CDF4;
+}
+hr {
+    border-color: #344454;
+}
 </style>
 """, unsafe_allow_html=True)
 
+# 메인 화면으로 돌아가기
 if st.button("← 메인 화면으로 돌아가기"):
     st.switch_page("app.py")
 
@@ -31,12 +82,60 @@ st.title("리소좀")
 st.caption("Lysosome · 세포 내 물질을 분해하고 재활용하는 소기관")
 
 st.divider()
-image_col, overview_col = st.columns([1, 1.25], gap="large")
+
+image_col, overview_col = st.columns(
+    [1, 1.25],
+    gap="large"
+)
+
 with image_col:
-    if IMAGE_PATH.exists():
-        st.image(str(IMAGE_PATH), width="stretch")
+    st.subheader("리소좀 이미지")
+
+    # 임시 진단: 실제 실행 경로와 파일 존재 여부 확인
+    st.markdown("#### 이미지 경로 진단")
+
+    st.code(
+        f"현재 페이지: {Path(__file__).resolve()}\n"
+        f"프로젝트 경로: {ROOT_DIR}\n"
+        f"이미지 폴더: {IMAGE_DIR}\n"
+        f"이미지 파일: {IMAGE_PATH}",
+        language="text"
+    )
+
+    st.write("이미지 폴더 존재 여부:", IMAGE_DIR.is_dir())
+    st.write("이미지 파일 존재 여부:", IMAGE_PATH.is_file())
+
+    if IMAGE_DIR.is_dir():
+        st.write(
+            "실제로 확인되는 이미지 폴더의 파일 목록:"
+        )
+        st.write(
+            sorted(
+                file.name
+                for file in IMAGE_DIR.iterdir()
+                if file.is_file()
+            )
+        )
     else:
-        st.warning("images/lysosome.png 파일을 찾을 수 없습니다.")
+        st.warning(
+            "현재 계산된 위치에 images 폴더가 없습니다."
+        )
+
+    if IMAGE_PATH.is_file():
+        try:
+            st.image(
+                str(IMAGE_PATH),
+                width="stretch"
+            )
+            st.success("리소좀 이미지를 정상적으로 읽었습니다.")
+        except Exception as error:
+            st.error("이미지 파일을 읽는 중 오류가 발생했습니다.")
+            st.exception(error)
+    else:
+        st.error(
+            "이미지를 찾을 수 없습니다: "
+            f"{IMAGE_PATH}"
+        )
 
 with overview_col:
     st.subheader("개요")
@@ -51,6 +150,7 @@ with overview_col:
     """, unsafe_allow_html=True)
 
 st.markdown("---")
+
 st.markdown("""
 <div class="article-section">
 
