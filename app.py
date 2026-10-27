@@ -135,6 +135,11 @@ st.markdown(
         color: #c9dce5;
     }
 
+    /* 위쪽 Streamlit 기본 페이지 이동 메뉴만 숨김 */
+    [data-testid="stSidebarNav"] {
+        display: none !important;
+    }
+
     .block-container {
         max-width: 1800px;
         padding-top: 1.2rem;
@@ -441,6 +446,12 @@ with st.sidebar:
 
     st.markdown("**COMMAND CENTER**")
     st.caption("현재 화면 · 작전 지휘 통제실")
+
+    # 메인 화면으로 이동하는 app 버튼 추가
+    st.page_link(
+        "app.py",
+        label="app",
+    )
 
     st.markdown(
         '<div class="side-section">02 / INTELLIGENCE FILES</div>',
