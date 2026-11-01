@@ -1,4 +1,4 @@
-
+```python
 import streamlit as st
 from pathlib import Path
 from datetime import datetime
@@ -15,6 +15,7 @@ st.set_page_config(
 
 ROOT_DIR = Path(__file__).resolve().parent
 IMAGE_DIR = ROOT_DIR / "images"
+PAGES_DIR = ROOT_DIR / "pages"
 
 # =========================================================
 # 2. 소기관 정보
@@ -447,16 +448,18 @@ with st.sidebar:
     )
 
     for organelle in ORGANELLES:
-        if (ROOT_DIR / organelle["page"]).exists():
+        page_path = ROOT_DIR / organelle["page"]
+
+        if page_path.is_file():
             st.page_link(
                 organelle["page"],
                 label=f'{organelle["code"]} / {organelle["name"]}',
             )
 
-    # 작전 페이지를 사이드바 메뉴에 추가합니다.
-    game_page = ROOT_DIR / "pages" / "10_작전.py"
+    # 작전 페이지: pages/10_작전.py
+    game_page_path = PAGES_DIR / "10_작전.py"
 
-    if game_page.exists():
+    if game_page_path.is_file():
         st.page_link(
             "pages/10_작전.py",
             label="BIO-10 / 작전",
@@ -596,7 +599,7 @@ with center_col:
 
     cell_image = IMAGE_DIR / "cell.png"
 
-    if cell_image.exists():
+    if cell_image.is_file():
         st.image(
             str(cell_image),
             use_container_width=True,
@@ -702,7 +705,7 @@ for start in range(0, len(ORGANELLES), 3):
             with button_col:
                 page_path = ROOT_DIR / organelle["page"]
 
-                if page_path.exists():
+                if page_path.is_file():
                     st.page_link(
                         organelle["page"],
                         label="ACCESS FILE",
@@ -713,7 +716,7 @@ for start in range(0, len(ORGANELLES), 3):
 
             image_path = IMAGE_DIR / organelle["image"]
 
-            if image_path.exists():
+            if image_path.is_file():
                 st.image(
                     str(image_path),
                     use_container_width=True,
