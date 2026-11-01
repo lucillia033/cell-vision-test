@@ -110,13 +110,6 @@ html, body, [class*="css"] {
     margin-bottom: 24px;
 }
 
-.briefing-text {
-    color: #B8C5D3;
-    font-family: 'Noto Sans KR', sans-serif;
-    font-size: 15px;
-    line-height: 1.9;
-}
-
 .hero {
     position: relative;
     overflow: hidden;
@@ -303,7 +296,7 @@ div[data-testid="stButton"] > button:hover {
 """)
 
 # =========================================================
-# 3. 상단 보안 상태 및 브리핑 안내
+# 3. 상단 보안 상태
 # =========================================================
 
 st.html("""
@@ -317,16 +310,6 @@ st.html("""
 <div class="briefing-label">CLASSIFIED // PERSONNEL ONLY</div>
 <div class="briefing-title">MISSION BRIEFING</div>
 <div class="briefing-subtitle">OPERATION CELL SHIELD</div>
-
-<div class="briefing-text">
-    대원, 긴급 작전이 하달되었습니다.<br><br>
-    인체를 구성하는 세포 내부에서 이상 상황이 발생했습니다.
-    임무를 완수하려면 세포를 구성하는 각 소기관의 구조와 기능을
-    정확하게 파악해야 합니다.<br><br>
-    귀하는 <b>TASK FORCE CELL VISION</b>의 작전 요원입니다.
-    지금부터 생물학적 정보를 수집하고 분석하여 최종 작전에 대비하십시오.
-    확보한 지식은 마지막 작전에서 핵심적인 역할을 하게 됩니다.
-</div>
 """)
 
 # =========================================================
@@ -336,6 +319,7 @@ st.html("""
 st.html("""
 <div class="hero">
     <div class="hero-inner">
+
         <div class="classification">
             CLASSIFIED // AUTHORIZED PERSONNEL ONLY
         </div>
@@ -356,21 +340,25 @@ st.html("""
         <div class="hero-rule"></div>
 
         <div class="briefing-copy">
-            대원, 지금부터 네 임무를 설명하겠다.<br><br>
+            대원, 긴급 작전이 하달됐다.<br><br>
 
-            세포 내부의 생명 시스템을 분석하고, 최종 작전을 수행할 준비를 마쳐라.
-            네가 상대할 문제는 단순한 지식 퀴즈가 아니다.
-            세포를 구성하는 소기관이 어떤 역할을 맡고, 서로 어떻게 협력하는지
-            이해해야 해결할 수 있다.<br><br>
+            인체를 구성하는 세포 내부에서 이상 상황이 발생했다.
+            임무를 완수하려면 세포를 구성하는 각 소기관의 구조와 기능을
+            정확하게 파악해야 한다.<br><br>
+
+            넌 지금부터 <strong>TASK FORCE CELL VISION</strong>의 작전 요원이다.
+            분석실에 진입해 생물학적 정보를 수집하고, 확보한 자료를 바탕으로
+            최종 작전에 대비해라.<br><br>
 
             핵의 유전 정보 관리부터 리보솜의 단백질 합성,
             미토콘드리아의 에너지 전환, 소포체와 골지체의 물질 처리까지.
-            각 소기관의 기능을 정확히 파악하고 그 연결 관계를 분석해라.<br><br>
+            각 소기관이 무슨 역할을 맡고 서로 어떻게 협력하는지 분석해라.<br><br>
 
             <strong>정보 없이 돌입하지 마라.</strong>
-            먼저 분석실에서 자료를 확보하고, 학습을 마친 뒤 최종 작전에 진입해라.
+            먼저 소기관 자료를 학습하고, 모든 준비를 마친 뒤 최종 작전에 진입해라.
             네가 확보한 지식이 임무의 성패를 결정한다.
         </div>
+
     </div>
 </div>
 """)
@@ -383,9 +371,10 @@ st.html("""
 <div class="directive">
     <div class="directive-label">COMMAND DIRECTIVE</div>
     <div class="directive-text">
-        네 첫 번째 임무는 분석실에 진입해 소기관 정보를 확보하는 것이다.
-        각 자료를 충분히 학습한 다음 최종 작전에 도전해라.
-        임무를 서두르지 마라. 정확한 분석이 승리를 만든다.
+        첫 번째 임무는 분석실에서 소기관 정보를 확보하는 거다.
+        자료를 하나씩 확인하고 각 소기관의 기능과 역할을 숙지해라.
+        학습을 마쳤다면 최종 작전에 도전해라.
+        명심해라, 대원. 정확한 분석 없이는 임무를 완수할 수 없다.
     </div>
 </div>
 """)
