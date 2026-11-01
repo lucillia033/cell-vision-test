@@ -17,11 +17,14 @@ ROOT_DIR = Path(__file__).resolve().parent
 IMAGE_DIR = ROOT_DIR / "images"
 
 # =========================================================
-# 2. 첫 접속 작전 브리핑 설정
+# 2. 첫 접속 작전 브리핑 연결
 # =========================================================
 
 if "briefing_completed" not in st.session_state:
     st.session_state.briefing_completed = False
+
+if not st.session_state.briefing_completed:
+    st.switch_page("pages/0_작전브리핑.py")
 
 # =========================================================
 # 3. 소기관 정보
@@ -141,7 +144,6 @@ st.markdown(
         color: #c9dce5;
     }
 
-    /* Streamlit 기본 페이지 메뉴만 숨김 */
     [data-testid="stSidebarNav"] {
         display: none !important;
     }
@@ -412,44 +414,6 @@ st.markdown(
         border-color: #203b4b;
     }
 
-    .briefing-panel {
-        background: linear-gradient(145deg, #0c1b28, #07111a);
-        border: 1px solid #315568;
-        border-top: 3px solid #57d9e8;
-        padding: clamp(20px, 4vw, 48px);
-        margin: 24px 0;
-    }
-
-    .briefing-kicker {
-        color: #57d9e8;
-        font-size: 11px;
-        letter-spacing: 2px;
-        margin-bottom: 18px;
-    }
-
-    .briefing-title {
-        color: #edf8fc;
-        font-family: 'IBM Plex Mono', monospace;
-        font-size: clamp(30px, 5vw, 54px);
-        font-weight: 700;
-        letter-spacing: 1px;
-        line-height: 1.2;
-        margin-bottom: 18px;
-    }
-
-    .briefing-text {
-        color: #c5d9e2;
-        font-family: 'Noto Sans KR', sans-serif;
-        font-size: 14px;
-        line-height: 2;
-    }
-
-    .briefing-divider {
-        height: 1px;
-        background: #284655;
-        margin: 24px 0;
-    }
-
     @media (max-width: 800px) {
         .top-strip {
             flex-wrap: wrap;
@@ -493,6 +457,14 @@ with st.sidebar:
         label="COMMAND CENTER / 메인 화면",
     )
 
+    briefing_page = ROOT_DIR / "pages" / "0_작전브리핑.py"
+
+    if briefing_page.exists():
+        st.page_link(
+            "pages/0_작전브리핑.py",
+            label="MISSION BRIEFING / 작전 브리핑",
+        )
+
     st.markdown(
         '<div class="side-section">02 / INTELLIGENCE FILES</div>',
         unsafe_allow_html=True,
@@ -530,85 +502,7 @@ with st.sidebar:
     st.caption("CELL VISION / INTERNAL USE")
 
 # =========================================================
-# 6. 첫 접속 작전 브리핑
-# =========================================================
-
-if not st.session_state.briefing_completed:
-    st.markdown(
-        """
-        <div class="top-strip">
-            <span>CV // BIOLOGICAL INTELLIGENCE SYSTEM</span>
-            <span>SECURITY LEVEL: <strong>RESTRICTED</strong></span>
-            <span>SYSTEM STATUS: <strong>BRIEFING REQUIRED</strong></span>
-        </div>
-
-        <div class="briefing-panel">
-            <div class="briefing-kicker">
-                BIOLOGICAL OPERATIONS UNIT // PERSONNEL BRIEFING
-            </div>
-
-            <div class="briefing-title">
-                OPERATION<br>
-                CELL SHIELD
-            </div>
-
-            <div class="briefing-text">
-                대원, 지금부터 귀하는 생명 시스템 분석 임무를 수행하는
-                특수작전 부대의 일원입니다.<br><br>
-
-                현재 임무의 핵심은 세포에 대한 정확한 정보를 확보하는 것입니다.
-                세포는 핵, 리보솜, 미토콘드리아를 비롯한 다양한 소기관이
-                서로 협력하며 작동하는 복잡한 생명 시스템입니다.<br><br>
-
-                임무를 완수하려면 각 소기관의 구조와 기능을 파악하고,
-                단백질 합성, 물질 수송, 에너지 전환이 어떤 방식으로 연결되는지
-                이해해야 합니다. 확보한 생물학적 지식은 최종 작전에서
-                제시되는 문제를 해결하는 데 사용됩니다.
-            </div>
-
-            <div class="briefing-divider"></div>
-
-            <div class="briefing-kicker">MISSION OBJECTIVES</div>
-
-            <div class="briefing-text">
-                OBJECTIVE 01 — 세포 구조 및 소기관 식별<br>
-                OBJECTIVE 02 — 소기관별 기능과 역할 분석<br>
-                OBJECTIVE 03 — 세포 내 물질 이동 과정 이해<br>
-                OBJECTIVE 04 — 학습 정보를 활용한 최종 작전 수행
-            </div>
-        </div>
-        """,
-        unsafe_allow_html=True,
-    )
-
-    st.warning(
-        "브리핑을 확인한 뒤 메인 분석실로 진입하십시오. "
-        "소기관 학습을 마치면 BIO-10 작전에서 최종 임무에 도전할 수 있습니다."
-    )
-
-    if st.button(
-        "ACKNOWLEDGE BRIEFING / 작전 브리핑 확인",
-        use_container_width=True,
-        type="primary",
-    ):
-        st.session_state.briefing_completed = True
-        st.rerun()
-
-    st.markdown(
-        """
-        <div class="footer-line">
-            <span>CELL VISION // BIOLOGICAL OPERATIONS UNIT</span>
-            <span>PERSONNEL BRIEFING</span>
-            <span>AWAITING ACKNOWLEDGEMENT</span>
-        </div>
-        """,
-        unsafe_allow_html=True,
-    )
-
-    st.stop()
-
-# =========================================================
-# 7. 상단 전술 시스템 바
+# 6. 상단 전술 시스템 바
 # =========================================================
 
 current_time = datetime.now().strftime("%Y-%m-%d")
@@ -637,7 +531,7 @@ st.markdown(
 )
 
 # =========================================================
-# 8. 상황 정보 패널
+# 7. 상황 정보 패널
 # =========================================================
 
 status_col1, status_col2, status_col3 = st.columns(3)
@@ -679,7 +573,7 @@ with status_col3:
     )
 
 # =========================================================
-# 9. 중앙 분석 화면
+# 8. 중앙 분석 화면
 # =========================================================
 
 st.markdown(
@@ -769,7 +663,7 @@ with right_col:
     )
 
 # =========================================================
-# 10. 소기관 정보 파일
+# 9. 소기관 정보 파일
 # =========================================================
 
 st.markdown(
@@ -834,7 +728,7 @@ for start in range(0, len(ORGANELLES), 3):
                 )
 
 # =========================================================
-# 11. 작전 지침
+# 10. 작전 지침
 # =========================================================
 
 st.markdown(
@@ -869,7 +763,7 @@ for title, description in protocols:
     )
 
 # =========================================================
-# 12. 하단 정보
+# 11. 하단 정보
 # =========================================================
 
 st.markdown(
