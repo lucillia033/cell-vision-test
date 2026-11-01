@@ -1,3 +1,4 @@
+```python
 import streamlit as st
 from pathlib import Path
 from datetime import datetime
@@ -452,12 +453,13 @@ with st.sidebar:
                 label=f'{organelle["code"]} / {organelle["name"]}',
             )
 
-    # 작전 훈련 페이지를 사이드바 메뉴에 추가합니다.
-    game_page = ROOT_DIR / "pages" / "10_작전훈련.py"
+    # 작전 페이지를 사이드바 메뉴에 추가합니다.
+    game_page = ROOT_DIR / "pages" / "10_작전.py"
+
     if game_page.exists():
         st.page_link(
-            "pages/10_작전훈련.py",
-            label="BIO-10 / 작전 훈련",
+            "pages/10_작전.py",
+            label="BIO-10 / 작전",
         )
 
     st.markdown(
@@ -644,7 +646,6 @@ with right_col:
 
 # =========================================================
 # 8. 소기관 정보 파일
-# 카드 정보 → DATA FILE → 이미지 → 이동 버튼
 # =========================================================
 
 st.markdown(
@@ -667,7 +668,6 @@ for start in range(0, len(ORGANELLES), 3):
 
     for column, organelle in zip(columns, row_items):
         with column:
-            # 기존 소기관 정보 카드 디자인 유지
             st.markdown(
                 f"""
                 <div class="intel-card">
@@ -683,7 +683,6 @@ for start in range(0, len(ORGANELLES), 3):
                 unsafe_allow_html=True,
             )
 
-            # DATA FILE 문구와 ACCESS FILE 버튼을 같은 행에 배치
             status_col, button_col = st.columns(
                 [1.35, 1],
                 vertical_alignment="center",
@@ -712,7 +711,6 @@ for start in range(0, len(ORGANELLES), 3):
                 else:
                     st.caption("상세 페이지 파일을 찾을 수 없습니다.")
 
-            # 이미지는 상태 표시와 버튼 아래에 유지
             image_path = IMAGE_DIR / organelle["image"]
 
             if image_path.exists():
@@ -774,3 +772,4 @@ st.markdown(
     """,
     unsafe_allow_html=True,
 )
+```
