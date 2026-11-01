@@ -1,4 +1,3 @@
-
 import streamlit as st
 from pathlib import Path
 from datetime import datetime
@@ -18,7 +17,6 @@ IMAGE_DIR = ROOT_DIR / "images"
 
 # =========================================================
 # 2. 소기관 정보
-# 이미지 파일은 모두 PNG 형식
 # =========================================================
 
 ORGANELLES = [
@@ -135,11 +133,6 @@ st.markdown(
         color: #c9dce5;
     }
 
-    /* 위쪽 Streamlit 기본 페이지 이동 메뉴만 숨김 */
-    [data-testid="stSidebarNav"] {
-        display: none !important;
-    }
-
     .block-container {
         max-width: 1800px;
         padding-top: 1.2rem;
@@ -248,8 +241,8 @@ st.markdown(
         border: 1px solid #284655;
         border-top: 2px solid #426c80;
         padding: 12px;
-        margin-bottom: 10px;
-        min-height: 205px;
+        margin-bottom: 0;
+        min-height: 195px;
     }
 
     .intel-code {
@@ -447,12 +440,6 @@ with st.sidebar:
     st.markdown("**COMMAND CENTER**")
     st.caption("현재 화면 · 작전 지휘 통제실")
 
-    # 메인 화면으로 이동하는 app 버튼 추가
-    st.page_link(
-        "app.py",
-        label="app",
-    )
-
     st.markdown(
         '<div class="side-section">02 / INTELLIGENCE FILES</div>',
         unsafe_allow_html=True,
@@ -464,6 +451,14 @@ with st.sidebar:
                 organelle["page"],
                 label=f'{organelle["code"]} / {organelle["name"]}',
             )
+
+    # 작전 훈련 페이지를 사이드바 메뉴에 추가합니다.
+    game_page = ROOT_DIR / "pages" / "10_작전훈련.py"
+    if game_page.exists():
+        st.page_link(
+            "pages/10_작전훈련.py",
+            label="BIO-10 / 작전 훈련",
+        )
 
     st.markdown(
         """
@@ -649,6 +644,7 @@ with right_col:
 
 # =========================================================
 # 8. 소기관 정보 파일
+# 카드 정보 → DATA FILE → 이미지 → 이동 버튼
 # =========================================================
 
 st.markdown(
@@ -671,18 +667,52 @@ for start in range(0, len(ORGANELLES), 3):
 
     for column, organelle in zip(columns, row_items):
         with column:
+            # 기존 소기관 정보 카드 디자인 유지
             st.markdown(
                 f"""
                 <div class="intel-card">
-                    <div class="intel-code">{organelle["code"]} // INTELLIGENCE FILE</div>
+                    <div class="intel-code">
+                        {organelle["code"]} // INTELLIGENCE FILE
+                    </div>
                     <div class="intel-name">{organelle["name"]}</div>
-                    <div class="intel-description">{organelle["description"]}</div>
-                    <div class="intel-status">● DATA FILE / BIOLOGICAL</div>
+                    <div class="intel-description">
+                        {organelle["description"]}
+                    </div>
                 </div>
                 """,
                 unsafe_allow_html=True,
             )
 
+            # DATA FILE 문구와 ACCESS FILE 버튼을 같은 행에 배치
+            status_col, button_col = st.columns(
+                [1.35, 1],
+                vertical_alignment="center",
+                gap="small",
+            )
+
+            with status_col:
+                st.markdown(
+                    """
+                    <div class="intel-status">
+                        ● DATA FILE / BIOLOGICAL
+                    </div>
+                    """,
+                    unsafe_allow_html=True,
+                )
+
+            with button_col:
+                page_path = ROOT_DIR / organelle["page"]
+
+                if page_path.exists():
+                    st.page_link(
+                        organelle["page"],
+                        label="ACCESS FILE",
+                        use_container_width=True,
+                    )
+                else:
+                    st.caption("상세 페이지 파일을 찾을 수 없습니다.")
+
+            # 이미지는 상태 표시와 버튼 아래에 유지
             image_path = IMAGE_DIR / organelle["image"]
 
             if image_path.exists():
@@ -693,18 +723,6 @@ for start in range(0, len(ORGANELLES), 3):
             else:
                 st.warning(
                     f'이미지 파일을 찾을 수 없습니다: images/{organelle["image"]}'
-                )
-
-            page_path = ROOT_DIR / organelle["page"]
-
-            if page_path.exists():
-                st.page_link(
-                    organelle["page"],
-                    label=f'ACCESS FILE / {organelle["name"]}',
-                )
-            else:
-                st.caption(
-                    f'상세 페이지 파일 확인 필요: {organelle["page"]}'
                 )
 
 # =========================================================
@@ -741,6 +759,10 @@ for title, description in protocols:
         """,
         unsafe_allow_html=True,
     )
+
+# =========================================================
+# 10. 하단 정보
+# =========================================================
 
 st.markdown(
     """
