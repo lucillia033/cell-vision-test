@@ -1,6 +1,4 @@
-from pathlib import Path
-
-code = r'''import random
+import random
 from pathlib import Path
 
 import streamlit as st
@@ -238,7 +236,7 @@ MISSIONS = {
             ("크리스타의 접힌 구조가 내막의 표면적을 넓히는 것은 어떤 점에서 유리한가요?", ["에너지 전환에 관여하는 단백질이 자리할 공간을 늘린다", "핵 DNA를 모두 외부로 방출한다", "리보솜을 골지체로 바꾼다", "세포막의 선택적 투과성을 없앤다"], 0, "내막 표면적이 넓으면 전자 전달과 ATP 합성에 관여하는 구성 요소가 자리할 수 있는 공간이 커집니다."),
         ],
     },
-    "소포체": {
+        "소포체": {
         "code": "BIO-04",
         "english": "ENDOPLASMIC RETICULUM",
         "summary": "단백질과 지질의 합성 및 가공",
@@ -504,7 +502,7 @@ if st.session_state.cv_game_mission is None:
                     unsafe_allow_html=True,
                 )
                 if st.button(
-                    f"{data['code']} 작전 시작",
+                    f"{name} 미션 시작",
                     key=f"start_{data['code']}",
                     use_container_width=True,
                 ):
@@ -512,18 +510,10 @@ if st.session_state.cv_game_mission is None:
                     st.rerun()
 
     st.markdown("---")
-    st.markdown(
-        """
-        <div class="side-info">
-        RULES OF ENGAGEMENT / 작전 규칙<br>
-        01 · 각 미션은 10문제로 구성됩니다.<br>
-        02 · 정답 0~4개: MISSION FAILED<br>
-        03 · 정답 5~8개: MISSION COMPROMISED<br>
-        04 · 정답 9~10개: MISSION COMPLETE
-        </div>
-        """,
-        unsafe_allow_html=True,
-    )
+    st.markdown("### 훈련 규칙")
+    st.write("- 소기관 하나당 10문제가 출제됩니다.")
+    st.write("- 답안을 선택하고 제출하면 정답과 해설을 확인할 수 있습니다.")
+    st.write("- 모든 문제를 마치면 최종 점수와 복습 결과가 표시됩니다.")
 
 # =========================================================
 # 7. 문제 풀이 화면
@@ -531,202 +521,129 @@ if st.session_state.cv_game_mission is None:
 
 else:
     mission_name = st.session_state.cv_game_mission
-    mission = MISSIONS[mission_name]
+    mission_data = MISSIONS[mission_name]
     question_order = st.session_state.cv_game_questions
-    question_index = st.session_state.cv_game_index
-    question_number = question_index + 1
-    question_data_index = question_order[question_index]
-    question, options, correct_index, explanation = mission["questions"][question_data_index]
+    current_index = st.session_state.cv_game_index
 
     st.markdown(
         f"""
         <div class="overview">
-          <div class="info-label">MISSION BRIEFING / {mission['code']}</div>
-          <h3 style="margin-top:10px;">{mission_name} 작전 · {mission['english']}</h3>
-          {mission['briefing']}
+          <div class="info-label">{mission_data['code']} / ACTIVE OPERATION</div>
+          <h2>{mission_name} | {mission_data['english']}</h2>
+          {mission_data['briefing']}
         </div>
         """,
         unsafe_allow_html=True,
     )
 
-    top_left, top_right = st.columns([2, 1])
-    with top_left:
-        st.markdown(f"### QUESTION {question_number:02d} / 10")
-        st.caption("INTELLIGENCE ANALYSIS · 정보 분석")
-    with top_right:
-        st.markdown(f"**MISSION STATUS:** `ACTIVE`")
-        st.markdown(f"**FILE:** `{mission['code']}`")
-
-    st.progress(question_number / 10, text=f"MISSION PROGRESS · {question_number}/10")
-
-    st.markdown(
-        f"""
-        <div class="report-box">
-          <div class="info-label">INTELLIGENCE REPORT / {question_number:02d}</div>
-          <br>
-          <div style="font-size:20px;font-weight:600;color:#dceaf0;">{question}</div>
-        </div>
-        """,
-        unsafe_allow_html=True,
+    correct_count = sum(
+        1
+        for q_index, selected in st.session_state.cv_game_answers.items()
+        if selected == MISSIONS[mission_name]["questions"][q_index][2]
     )
+    answered_count = len(st.session_state.cv_game_answers)
+    st.progress(answered_count / 10)
+    st.caption(f"진행 상황: {answered_count}/10 · 현재 정답: {correct_count}")
 
-    answer_key = f"{mission_name}_{question_data_index}"
-    previous_answer = st.session_state.cv_game_answers.get(answer_key)
-
-    with st.form(key=f"question_form_{mission_name}_{question_index}"):
-        chosen = st.radio(
-            "분석 결과를 선택하십시오.",
-            options=list(range(len(options))),
-            format_func=lambda i: f"{chr(65 + i)}. {options[i]}",
-            index=previous_answer if previous_answer is not None else None,
-            key=f"answer_radio_{mission_name}_{question_index}",
-        )
-        submitted = st.form_submit_button("답안 제출 / SUBMIT INTELLIGENCE", use_container_width=True)
-
-    if submitted:
-        st.session_state.cv_game_answers[answer_key] = chosen
-        st.session_state.cv_game_submitted = True
-        st.rerun()
-
-    if st.session_state.cv_game_submitted:
-        current_answer = st.session_state.cv_game_answers.get(answer_key)
-        if current_answer == correct_index:
-            st.markdown(
-                """
-                <div class="report-box" style="border-left:3px solid #57d9e8;">
-                  <div class="info-label">ANALYSIS CONFIRMED</div>
-                  <b>정보 분석 성공</b><br>정확한 판단입니다. 다음 분석 단계로 진행하십시오.
-                </div>
-                """,
-                unsafe_allow_html=True,
-            )
-        else:
-            st.markdown(
-                """
-                <div class="report-box" style="border-left:3px solid #b86b6b;">
-                  <div style="color:#d16b6b;font-family:'IBM Plex Mono',monospace;font-size:11px;">ANALYSIS ERROR</div>
-                  <b>정보 분석 오류</b><br>정답과 해설을 확인하고 내용을 검토하십시오.
-                </div>
-                """,
-                unsafe_allow_html=True,
-            )
+    if not st.session_state.cv_game_finished:
+        question_index = question_order[current_index]
+        question, choices, answer_index, explanation = mission_data["questions"][question_index]
 
         st.markdown(
-            f"""
-            <div class="report-box">
-              <div class="info-label">INTELLIGENCE NOTES / 해설</div>
-              {explanation}
-            </div>
-            """,
+            f'<div class="eyebrow">QUESTION {current_index + 1:02d} / 10</div>',
             unsafe_allow_html=True,
         )
+        st.markdown(f"## {question}")
 
-        if question_index < 9:
-            if st.button("다음 분석 단계로 / NEXT QUESTION", use_container_width=True):
-                st.session_state.cv_game_index += 1
-                st.session_state.cv_game_submitted = False
-                st.rerun()
+        saved_answer = st.session_state.cv_game_answers.get(question_index)
+        choice = st.radio(
+            "정답을 선택하십시오.",
+            choices,
+            index=saved_answer if saved_answer is not None else None,
+            key=f"answer_{mission_data['code']}_{question_index}",
+            disabled=st.session_state.cv_game_submitted,
+        )
+
+        if not st.session_state.cv_game_submitted:
+            if st.button("답안 제출 / SUBMIT ANSWER", use_container_width=True):
+                if choice is None:
+                    st.warning("답안을 먼저 선택하십시오.")
+                else:
+                    st.session_state.cv_game_answers[question_index] = choices.index(choice)
+                    st.session_state.cv_game_submitted = True
+                    st.rerun()
         else:
-            if st.button("최종 작전 평가 / FINAL DEBRIEF", use_container_width=True):
-                st.session_state.cv_game_finished = True
-                st.rerun()
+            selected_index = st.session_state.cv_game_answers[question_index]
+            if selected_index == answer_index:
+                st.success("정답입니다.")
+            else:
+                st.error("오답입니다.")
+                st.markdown(f"**정답:** {choices[answer_index]}")
+            st.markdown(
+                f'<div class="report-box"><div class="info-label">ANALYSIS REPORT</div>{explanation}</div>',
+                unsafe_allow_html=True,
+            )
 
-    # =====================================================
-    # 8. 최종 결과 화면
-    # =====================================================
+            if current_index < 9:
+                if st.button("다음 문제 / NEXT QUESTION", use_container_width=True):
+                    st.session_state.cv_game_index += 1
+                    st.session_state.cv_game_submitted = False
+                    st.rerun()
+            else:
+                if st.button("결과 확인 / VIEW RESULTS", use_container_width=True):
+                    st.session_state.cv_game_finished = True
+                    st.rerun()
 
-    if st.session_state.cv_game_finished:
-        correct_count = 0
-        answer_details = []
-        for idx, qdata in enumerate(mission["questions"]):
-            key = f"{mission_name}_{idx}"
-            user_answer = st.session_state.cv_game_answers.get(key)
-            is_correct = user_answer == qdata[2]
-            if is_correct:
-                correct_count += 1
-            answer_details.append((idx, qdata, user_answer, is_correct))
-
-        wrong_count = 10 - correct_count
-        score = correct_count * 10
-
-        if correct_count <= 4:
-            status = "MISSION FAILED"
-            korean_status = "작전 실패"
-            status_color = "#d16b6b"
-            report = "작전 목표 달성에 실패했습니다. 오답 분석을 진행하고 해당 소기관의 정보 파일을 다시 검토하십시오."
-            followup = "OBJECTIVE FAILED / 재훈련 및 재도전 필요"
-        elif correct_count <= 8:
-            status = "MISSION COMPROMISED"
-            korean_status = "부분적 작전 성공"
-            status_color = "#d9a45e"
-            report = "작전 목표는 일부 달성했지만 분석 과정에서 오류가 확인되었습니다. 오답 해설을 검토해 정보 정확도를 높이십시오."
-            followup = "OBJECTIVE PARTIALLY SECURED / 오류 항목 보완 필요"
-        else:
-            status = "MISSION COMPLETE"
-            korean_status = "작전 성공"
-            status_color = "#57d9e8"
-            report = "분석 목표를 달성했습니다. 해당 소기관의 핵심 정보를 정확하게 이해하고 있습니다."
-            followup = "ALL OBJECTIVES SECURED / 작전 성공"
+    else:
+        final_correct = sum(
+            1
+            for q_index, selected in st.session_state.cv_game_answers.items()
+            if selected == mission_data["questions"][q_index][2]
+        )
+        score = final_correct * 10
 
         st.markdown("---")
+        st.markdown("## 작전 결과 | MISSION DEBRIEF")
         st.markdown(
             f"""
-            <div class="top-strip">
-              <span>MISSION DEBRIEF / 작전 결과 판정</span>
-              <span>FILE / {mission['code']}</span>
-              <span>STATUS / REVIEW</span>
-            </div>
-            <div class="eyebrow">OPERATIONAL ASSESSMENT // FINAL REPORT</div>
-            <h1 style="color:{status_color};">{status}</h1>
-            <h2>{korean_status}</h2>
-            <div class="report-box" style="border-left:3px solid {status_color};">
-              <div style="color:{status_color};font-family:'IBM Plex Mono',monospace;font-size:11px;">OBJECTIVE STATUS / {status}</div>
-              {report}
+            <div class="overview">
+              <div class="info-label">FINAL REPORT / {mission_data['code']}</div>
+              <h2>{score} / 100</h2>
+              정답 {final_correct}개 / 전체 10문제
             </div>
             """,
             unsafe_allow_html=True,
         )
 
-        metric1, metric2, metric3 = st.columns(3)
-        metric1.metric("MISSION SCORE", f"{score} / 100")
-        metric2.metric("CORRECT ANSWERS", f"{correct_count} / 10")
-        metric3.metric("ERROR REPORT", f"{wrong_count} / 10")
-
-        st.markdown(
-            f"""
-            <div class="report-box">
-              <div class="info-label">RECOMMENDED ACTION / 후속 조치</div>
-              {followup}
-            </div>
-            """,
-            unsafe_allow_html=True,
-        )
-
-        with st.expander("오답 및 정답 전체 보고서 / REVIEW ANSWERS"):
-            for idx, qdata, user_answer, is_correct in answer_details:
-                qtext, opts, correct_idx, explain = qdata
-                label = "분석 성공" if is_correct else "분석 오류"
-                st.markdown(f"**{idx + 1:02d}. {qtext}**")
-                if user_answer is None:
-                    st.write("제출 기록 없음")
-                else:
-                    st.write(f"선택한 답: {chr(65 + user_answer)}. {opts[user_answer]}")
-                st.write(f"정답: {chr(65 + correct_idx)}. {opts[correct_idx]}")
-                st.caption(f"{label} · {explain}")
-                st.markdown("---")
-
-        if correct_count <= 8:
-            if st.button("재도전 / RETURN TO COMMAND CENTER", use_container_width=True):
-                return_to_main()
+        if final_correct == 10:
+            st.success("작전 성공: 모든 문제를 정확하게 해결했습니다.")
+        elif final_correct >= 7:
+            st.info("작전 완료: 주요 개념을 잘 이해했습니다. 틀린 문제를 복습하십시오.")
         else:
-            if st.button("작전 성공 확인 / RETURN TO COMMAND CENTER", use_container_width=True):
-                return_to_main()
+            st.warning("추가 훈련 권장: 정보 파일을 다시 학습한 뒤 재도전하십시오.")
 
-        if st.button("다른 소기관 미션 선택 / SELECT ANOTHER MISSION", use_container_width=True):
-            return_to_mission_select()
-'''
+        st.markdown("### 오답 복습 | REVIEW REPORT")
+        wrong_items = []
+        for q_index, selected in st.session_state.cv_game_answers.items():
+            question, choices, answer_index, explanation = mission_data["questions"][q_index]
+            if selected != answer_index:
+                wrong_items.append((q_index, question, choices, selected, answer_index, explanation))
 
-path = Path("/mnt/data/10_작전훈련.py")
-path.write_text(code, encoding="utf-8")
-print(f"생성 완료: {path}")
-print(f"파일 크기: {path.stat().st_size:,} bytes")
+        if not wrong_items:
+            st.write("오답이 없습니다. 모든 문항을 정확하게 해결했습니다.")
+        else:
+            for number, (_, question, choices, selected, answer_index, explanation) in enumerate(wrong_items, start=1):
+                with st.expander(f"오답 {number} · {question}"):
+                    st.write(f"내가 선택한 답: {choices[selected]}")
+                    st.write(f"정답: {choices[answer_index]}")
+                    st.write(f"해설: {explanation}")
+
+        st.markdown("---")
+        left, right = st.columns(2)
+        with left:
+            if st.button("같은 미션 다시 도전 / RETRY", use_container_width=True):
+                start_mission(mission_name)
+                st.rerun()
+        with right:
+            if st.button("다른 소기관 미션 선택 / SELECT ANOTHER MISSION", use_container_width=True):
+                return_to_mission_select()
