@@ -15,11 +15,9 @@ st.markdown(
     [data-testid="stHeader"] {
         background: #070C13;
     }
-
     [data-testid="stSidebar"] {
         background: #101923;
     }
-
     .block-container {
         padding-top: 1rem;
         padding-bottom: 1rem;
@@ -69,7 +67,7 @@ button { font-family: inherit; }
 .game {
     position: relative;
     width: 100%;
-    min-height: 700px;
+    min-height: 720px;
     overflow: hidden;
     border: 1px solid #293d51;
     border-radius: 10px;
@@ -95,8 +93,8 @@ button { font-family: inherit; }
     display: flex;
     justify-content: space-between;
     align-items: center;
-    gap: 16px;
-    padding: 18px 22px;
+    gap: 14px;
+    padding: 19px 18px;
 }
 
 .kicker {
@@ -119,7 +117,14 @@ button { font-family: inherit; }
     letter-spacing: 1px;
 }
 
-.enemy-hud { width: min(330px, 42%); }
+.top-actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+.enemy-hud { width: min(250px, 32vw); }
 
 .hud-label {
     display: flex;
@@ -149,6 +154,23 @@ button { font-family: inherit; }
 .enemy-cell.empty {
     background: #241b25;
     box-shadow: none;
+}
+
+.exit-button {
+    flex-shrink: 0;
+    padding: 10px 12px;
+    border: 1px solid #75869a;
+    background: #17212d;
+    color: #e3ebf4;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: .7px;
+    cursor: pointer;
+}
+
+.exit-button:hover {
+    border-color: #9bcfff;
+    background: #2a3a4b;
 }
 
 .arena {
@@ -266,6 +288,18 @@ button { font-family: inherit; }
     height: 34px;
     border: 1px solid #6d8296;
     background: linear-gradient(135deg, #273c4f, #111b27);
+}
+
+.body-shape::after {
+    content: "";
+    position: absolute;
+    top: 8px;
+    left: 20px;
+    width: 8px;
+    height: 46px;
+    border-left: 1px solid #8295a8;
+    border-right: 1px solid #8295a8;
+    background: #101a25;
 }
 
 .helmet {
@@ -856,8 +890,11 @@ button { font-family: inherit; }
 .base-button:hover { background: #2a3a4b; }
 
 @media (max-width: 680px) {
-    .game { min-height: 750px; }
-    .topbar { padding: 14px; }
+    .game { min-height: 760px; }
+    .topbar { align-items: flex-start; padding: 14px; }
+    .top-actions { flex-direction: column; align-items: flex-end; }
+    .enemy-hud { width: 145px; max-width: 42vw; }
+    .exit-button { padding: 8px; font-size: 9px; }
     .arena { height: 255px; }
     .machine { width: 140px; height: 155px; }
     .machine::before { width: 65px; height: 110px; }
@@ -870,7 +907,6 @@ button { font-family: inherit; }
     .small-label { margin-top: 4px; }
     .question { font-size: 14px; }
     .answers { grid-template-columns: 1fr; }
-    .enemy-hud { width: 45%; }
 }
 </style>
 </head>
@@ -885,12 +921,18 @@ button { font-family: inherit; }
             <div class="heading">BLACK VEIL INTERCEPTION</div>
             <div class="sub">BIOLOGICAL THREAT ELIMINATION</div>
         </div>
-        <div class="enemy-hud">
-            <div class="hud-label">
-                <span>ENEMY INTEGRITY</span>
-                <span id="enemyCount">10 / 10</span>
+
+        <div class="top-actions">
+            <div class="enemy-hud">
+                <div class="hud-label">
+                    <span>ENEMY INTEGRITY</span>
+                    <span id="enemyCount">10 / 10</span>
+                </div>
+                <div class="bar-track" id="enemyBars"></div>
             </div>
-            <div class="bar-track" id="enemyBars"></div>
+            <button class="exit-button" id="exitButton" type="button">
+                EXIT TO BASE
+            </button>
         </div>
     </div>
 
@@ -953,12 +995,16 @@ button { font-family: inherit; }
             <div class="panel-title">OPERATIVE STATUS</div>
 
             <div>
-                <div class="small-label">PLAYER HP <span id="hpCount">4 / 4</span></div>
+                <div class="small-label">
+                    PLAYER HP <span id="hpCount">4 / 4</span>
+                </div>
                 <div class="hp-track" id="hpBars"></div>
             </div>
 
             <div>
-                <div class="small-label">COMBO <span id="comboCount">0</span> / 2</div>
+                <div class="small-label">
+                    COMBO <span id="comboCount">0</span> / 2
+                </div>
                 <div class="energy-track">
                     <div class="energy-fill" id="energyFill"></div>
                 </div>
@@ -969,7 +1015,9 @@ button { font-family: inherit; }
                 <div class="weapon active" id="rifleSlot">1 — PULSE RIFLE</div>
                 <div class="weapon" id="grenadeSlot">2 — GRENADE / 2 COMBO</div>
                 <div class="weapon" id="heavySlot">3 — HEAVY BOMB / PERFECT</div>
-                <div class="weapon-hint" id="weaponHint">PULSE RIFLE 장착 중</div>
+                <div class="weapon-hint" id="weaponHint">
+                    PULSE RIFLE 장착 중
+                </div>
             </div>
         </div>
 
@@ -980,9 +1028,13 @@ button { font-family: inherit; }
             </div>
             <div class="question" id="questionText"></div>
             <div class="answers" id="answers"></div>
-            <div class="feedback" id="feedback">문제를 풀어 작전을 진행하십시오.</div>
+            <div class="feedback" id="feedback">
+                문제를 풀어 작전을 진행하십시오.
+            </div>
             <div class="action-row">
-                <button class="action" id="nextButton" disabled>NEXT QUESTION</button>
+                <button class="action" id="nextButton" disabled>
+                    NEXT QUESTION
+                </button>
             </div>
             <div class="status" id="status">
                 연속 2정답: 수류탄 공격 / 체력 소진: 임무 실패
@@ -1132,11 +1184,13 @@ function setWeapon(type) {
     if (type === "grenade") {
         model.classList.add("grenade-mode");
         $("grenadeSlot").classList.add("grenade-active");
-        $("weaponHint").textContent = "GRENADE 장착 · 연속 2정답 공격";
+        $("weaponHint").textContent =
+            "GRENADE 장착 · 연속 2정답 공격";
     } else if (type === "heavy") {
         model.classList.add("heavy-mode");
         $("heavySlot").classList.add("heavy-active");
-        $("weaponHint").textContent = "HEAVY BOMB 발동 · 완벽 작전";
+        $("weaponHint").textContent =
+            "HEAVY BOMB 발동 · 완벽 작전";
     } else {
         $("rifleSlot").classList.add("active");
         $("weaponHint").textContent = "PULSE RIFLE 장착 중";
@@ -1148,7 +1202,8 @@ function renderBars() {
 
     for (let i = 0; i < 10; i++) {
         const cell = document.createElement("div");
-        cell.className = "enemy-cell" + (i >= enemyHP ? " empty" : "");
+        cell.className =
+            "enemy-cell" + (i >= enemyHP ? " empty" : "");
         $("enemyBars").appendChild(cell);
     }
 
@@ -1157,7 +1212,8 @@ function renderBars() {
 
     for (let i = 0; i < 4; i++) {
         const cell = document.createElement("div");
-        cell.className = "hp-unit" + (i >= playerHP ? " lost" : "");
+        cell.className =
+            "hp-unit" + (i >= playerHP ? " lost" : "");
         $("hpBars").appendChild(cell);
     }
 
@@ -1186,7 +1242,9 @@ function loadQuestion() {
     item.a.forEach((answer, index) => {
         const button = document.createElement("button");
         button.className = "answer";
-        button.textContent = `${String.fromCharCode(65 + index)}. ${answer}`;
+        button.textContent =
+            `${String.fromCharCode(65 + index)}. ${answer}`;
+
         button.addEventListener("click", () => submitAnswer(index));
         $("answers").appendChild(button);
     });
@@ -1321,6 +1379,9 @@ function hitEnemy(damage) {
 
 function finishAnswerAction() {
     if (finished) return;
+
+    // 공격이 끝나면 답변 처리를 해제하고 다음 질문 버튼을 활성화합니다.
+    locked = false;
     $("nextButton").disabled = false;
 }
 
@@ -1341,6 +1402,7 @@ function submitAnswer(selected) {
         combo++;
         buttons[selected].classList.add("correct");
 
+        // 첫 10문제를 모두 맞히면 대형 폭탄을 발동합니다.
         if (
             questionIndex === 9 &&
             correctTotal === 10 &&
@@ -1412,6 +1474,7 @@ function submitAnswer(selected) {
             return;
         }
 
+        // 오답이어도 체력이 남아 있으면 다음 질문으로 이동할 수 있습니다.
         $("nextButton").disabled = false;
     }
 }
@@ -1478,15 +1541,13 @@ function restartGame() {
 }
 
 function returnToBase() {
-    /*
-      Streamlit 앱의 루트 페이지로 이동합니다.
-      앱이 도메인 루트에 배포된 경우 app.py 화면으로 돌아갑니다.
-    */
+    // 앱이 도메인 루트에 배포된 경우 본부 화면으로 돌아갑니다.
     window.parent.location.assign(window.parent.location.origin + "/");
 }
 
 $("nextButton").addEventListener("click", () => {
-    if (finished || locked) return;
+    // locked 값에 막혀 버튼이 작동하지 않던 문제를 수정했습니다.
+    if (finished || $("nextButton").disabled) return;
 
     questionIndex++;
 
@@ -1499,6 +1560,7 @@ $("nextButton").addEventListener("click", () => {
 
 $("retryButton").addEventListener("click", restartGame);
 $("baseButton").addEventListener("click", returnToBase);
+$("exitButton").addEventListener("click", returnToBase);
 
 restartGame();
 </script>
