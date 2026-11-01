@@ -14,7 +14,7 @@ layout="wide",
 initial_sidebar_state="expanded",
 )
 
-ROOT_DIR = Path(**file**).resolve().parent
+ROOT_DIR = Path(__file__).resolve().parent
 IMAGE_DIR = ROOT_DIR / "images"
 
 # =========================================================
