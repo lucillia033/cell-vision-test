@@ -15,11 +15,9 @@ st.markdown(
     [data-testid="stHeader"] {
         background: #070C13;
     }
-
     [data-testid="stSidebar"] {
         background: #101923;
     }
-
     .block-container {
         padding-top: 1rem;
         padding-bottom: 1rem;
@@ -32,26 +30,17 @@ st.markdown(
 
 st.markdown(
     """
-    <div style="
-        color:#8ABCE8;
-        font-size:12px;
-        letter-spacing:3px;
-        margin-bottom:4px;
-    ">CELL VISION / BIOLOGICAL OPERATIONS UNIT</div>
-
-    <div style="
-        color:#F0F5FA;
-        font-size:30px;
-        font-weight:800;
-        letter-spacing:2px;
-    ">OPERATION CELL SHIELD</div>
-
-    <div style="
-        color:#8598AD;
-        font-size:13px;
-        margin-top:5px;
-        margin-bottom:16px;
-    ">BLACK VEIL INTERCEPTION PROTOCOL</div>
+    <div style="color:#8ABCE8;font-size:12px;letter-spacing:3px;">
+        CELL VISION / BIOLOGICAL OPERATIONS UNIT
+    </div>
+    <div style="color:#F0F5FA;font-size:30px;font-weight:800;
+                letter-spacing:2px;margin-top:4px;">
+        OPERATION CELL SHIELD
+    </div>
+    <div style="color:#8598AD;font-size:13px;margin-top:5px;
+                margin-bottom:16px;">
+        BLACK VEIL INTERCEPTION PROTOCOL
+    </div>
     """,
     unsafe_allow_html=True,
 )
@@ -68,8 +57,8 @@ game_html = r"""
 
 body {
     margin: 0;
-    background: #070c13;
     color: #edf4fc;
+    background: #070c13;
     font-family: Arial, "Malgun Gothic", sans-serif;
 }
 
@@ -78,94 +67,83 @@ button { font-family: inherit; }
 .game {
     position: relative;
     width: 100%;
-    min-height: 710px;
+    min-height: 720px;
     overflow: hidden;
-    background:
-        radial-gradient(ellipse at 50% 34%, #183653 0%, transparent 43%),
-        linear-gradient(180deg, #111e2d 0%, #101927 52%, #070b11 100%);
     border: 1px solid #293d51;
     border-radius: 10px;
+    background:
+        radial-gradient(ellipse at 50% 30%, #183653, transparent 48%),
+        linear-gradient(180deg, #111e2d, #101927 55%, #070b11);
 }
 
 .grid {
     position: absolute;
     inset: 0;
-    opacity: .18;
+    opacity: .14;
+    pointer-events: none;
     background-image:
         linear-gradient(#5c8cb1 1px, transparent 1px),
         linear-gradient(90deg, #5c8cb1 1px, transparent 1px);
-    background-size: 48px 48px;
+    background-size: 42px 42px;
     mask-image: linear-gradient(to bottom, black, transparent 90%);
-    pointer-events: none;
-}
-
-.light {
-    position: absolute;
-    top: 0;
-    left: 50%;
-    width: 3px;
-    height: 60%;
-    background: #5aa7ed;
-    box-shadow: 0 0 35px 10px #2374ba;
-    opacity: .35;
 }
 
 .topbar {
     position: relative;
-    z-index: 2;
+    z-index: 3;
     display: flex;
     justify-content: space-between;
+    align-items: center;
     gap: 18px;
-    padding: 20px 24px 12px;
+    padding: 19px 22px 15px;
 }
 
 .kicker {
     color: #8dbce9;
-    font-size: 11px;
+    font-size: 10px;
     letter-spacing: 2px;
     margin-bottom: 6px;
 }
 
 .heading {
-    font-size: 22px;
-    font-weight: 800;
-    letter-spacing: 1.5px;
+    font-size: clamp(16px, 2.5vw, 22px);
+    font-weight: 900;
+    letter-spacing: 1.3px;
 }
 
 .sub {
     color: #8194aa;
-    font-size: 11px;
+    font-size: 10px;
     margin-top: 5px;
     letter-spacing: 1px;
 }
 
-.enemy-hud { width: min(340px, 43%); }
+.enemy-hud { width: min(330px, 42%); }
 
 .hud-label {
     display: flex;
     justify-content: space-between;
-    gap: 10px;
-    font-size: 11px;
+    gap: 8px;
+    margin-bottom: 7px;
     color: #d6e0eb;
-    margin-bottom: 8px;
+    font-size: 10px;
     letter-spacing: 1px;
 }
 
 .bar-track {
-    height: 12px;
-    padding: 2px;
-    background: #281b24;
-    border: 1px solid #85414b;
     display: flex;
     gap: 3px;
+    height: 12px;
+    padding: 2px;
+    border: 1px solid #85414b;
+    background: #281b24;
 }
 
 .enemy-cell {
     flex: 1;
-    min-width: 0;
     background: #e24e5d;
-    box-shadow: 0 0 7px #a72c3b66;
-    transition: background .3s;
+    box-shadow: 0 0 6px #a72c3b66;
+    transition: background .2s;
 }
 
 .enemy-cell.empty {
@@ -176,27 +154,27 @@ button { font-family: inherit; }
 /* 전투 구역 */
 
 .arena {
-    height: 310px;
     position: relative;
+    height: 310px;
     overflow: hidden;
     border-top: 1px solid #233548;
     border-bottom: 1px solid #314358;
     background:
         radial-gradient(ellipse at 50% 100%, #27445c77, transparent 55%),
-        linear-gradient(180deg, transparent 65%, #070c13 100%);
+        linear-gradient(180deg, transparent 65%, #070c13);
 }
 
 .machine {
     position: absolute;
     left: 50%;
-    top: 16px;
+    top: 15px;
+    width: 205px;
+    height: 205px;
     transform: translateX(-50%);
-    width: 230px;
-    height: 200px;
     border: 2px solid #32648c88;
     border-radius: 48% 48% 12% 12%;
     background: linear-gradient(180deg, #214b6c33, #07111d99);
-    box-shadow: 0 0 50px #1678ba22, inset 0 0 35px #287db322;
+    box-shadow: 0 0 45px #1678ba22, inset 0 0 30px #287db322;
 }
 
 .machine::before {
@@ -204,9 +182,9 @@ button { font-family: inherit; }
     position: absolute;
     left: 50%;
     top: 12px;
+    width: 90px;
+    height: 155px;
     transform: translateX(-50%);
-    width: 100px;
-    height: 165px;
     border: 3px solid #69baf2;
     border-radius: 50%;
     box-shadow: 0 0 20px #4ba9ff66, inset 0 0 20px #4ba9ff44;
@@ -215,23 +193,24 @@ button { font-family: inherit; }
 .machine::after {
     content: "BIOLOGICAL CORE";
     position: absolute;
+    bottom: 12px;
     left: 0;
     right: 0;
-    bottom: 12px;
-    text-align: center;
     color: #8bc8f2;
+    text-align: center;
     font-size: 9px;
     letter-spacing: 2px;
 }
 
 .floor {
     position: absolute;
+    z-index: 1;
+    bottom: 0;
     left: 0;
     right: 0;
-    bottom: 0;
-    height: 50px;
-    background: linear-gradient(180deg, #1c2b3b, #070b11);
+    height: 48px;
     border-top: 2px solid #476580;
+    background: linear-gradient(180deg, #1c2b3b, #070b11);
 }
 
 .floor::after {
@@ -242,37 +221,44 @@ button { font-family: inherit; }
     right: 0;
     height: 2px;
     background: linear-gradient(90deg, transparent, #54a9ec, transparent);
-    opacity: .6;
 }
 
-/* 캐릭터: 헬멧, 바이저, 방탄복, 어깨 장갑, 다리 장비 */
+.unit-label {
+    position: absolute;
+    bottom: 190px;
+    z-index: 4;
+    color: #a9c7df;
+    font-size: 9px;
+    letter-spacing: 1px;
+    white-space: nowrap;
+}
+
+.player-label { left: 5%; }
+.enemy-label { right: 5%; color: #e59aa4; }
+
+/* 전술 캐릭터 */
 
 .fighter {
     position: absolute;
-    bottom: 39px;
+    z-index: 3;
+    bottom: 37px;
     width: 112px;
     height: 158px;
-    z-index: 3;
-    transition: left .25s ease, right .25s ease, filter .15s;
 }
 
 .player { left: 12%; }
-.enemy { right: 12%; }
+.enemy { right: 12%; transform: scaleX(-1); }
 
 .body-shape {
     position: absolute;
+    z-index: 2;
     left: 29px;
     top: 53px;
     width: 55px;
-    height: 69px;
-    background:
-        linear-gradient(90deg, #263a4b, #405469 42%, #152332 75%);
+    height: 68px;
     border: 1px solid #71859a;
-    clip-path: polygon(
-        20% 0, 80% 0, 100% 28%,
-        88% 100%, 12% 100%, 0 28%
-    );
-    z-index: 2;
+    background: linear-gradient(90deg, #263a4b, #405469 42%, #152332 75%);
+    clip-path: polygon(20% 0, 80% 0, 100% 28%, 88% 100%, 12% 100%, 0 28%);
 }
 
 .body-shape::before {
@@ -284,43 +270,42 @@ button { font-family: inherit; }
     height: 34px;
     border: 1px solid #6d8296;
     background: linear-gradient(135deg, #273c4f, #111b27);
-    clip-path: polygon(10% 0, 90% 0, 100% 100%, 0 100%);
 }
 
 .body-shape::after {
     content: "";
     position: absolute;
-    left: 20px;
     top: 8px;
+    left: 20px;
     width: 8px;
     height: 46px;
-    background: #101a25;
     border-left: 1px solid #8295a8;
     border-right: 1px solid #8295a8;
+    background: #101a25;
 }
 
 .helmet {
     position: absolute;
+    z-index: 4;
     top: 10px;
     left: 32px;
     width: 49px;
     height: 49px;
-    background: linear-gradient(135deg, #586b7e, #202c3a 60%, #0b1119);
     border: 2px solid #8798a8;
     border-radius: 43% 43% 27% 27%;
-    z-index: 4;
+    background: linear-gradient(135deg, #586b7e, #202c3a 60%, #0b1119);
     box-shadow: inset 0 -5px 0 #101925;
 }
 
 .helmet::before {
     content: "";
     position: absolute;
+    top: 18px;
     left: 5px;
     right: 5px;
-    top: 18px;
     height: 8px;
-    background: #8bcfff;
     border: 1px solid #c5eaff;
+    background: #8bcfff;
     box-shadow: 0 0 12px #4bb6ff;
 }
 
@@ -331,19 +316,19 @@ button { font-family: inherit; }
     left: 10px;
     width: 24px;
     height: 5px;
-    background: #182635;
     border: 1px solid #71869a;
+    background: #182635;
 }
 
 .shoulder {
     position: absolute;
+    z-index: 3;
     top: 57px;
     width: 25px;
     height: 28px;
-    background: linear-gradient(135deg, #52687b, #1b2937);
     border: 1px solid #788b9e;
-    border-radius: 5px 5px 3px 3px;
-    z-index: 3;
+    border-radius: 5px;
+    background: linear-gradient(135deg, #52687b, #1b2937);
 }
 
 .shoulder.left { left: 14px; transform: rotate(12deg); }
@@ -351,13 +336,13 @@ button { font-family: inherit; }
 
 .arm {
     position: absolute;
+    z-index: 1;
     top: 77px;
     width: 15px;
     height: 39px;
-    background: linear-gradient(90deg, #182431, #3b4d5f);
     border: 1px solid #5c7084;
     border-radius: 4px;
-    z-index: 1;
+    background: linear-gradient(90deg, #182431, #3b4d5f);
 }
 
 .arm.left { left: 20px; transform: rotate(9deg); }
@@ -365,23 +350,23 @@ button { font-family: inherit; }
 
 .belt {
     position: absolute;
+    z-index: 4;
     top: 115px;
     left: 32px;
     width: 49px;
     height: 9px;
-    background: #101923;
     border: 1px solid #677b8e;
-    z-index: 4;
+    background: #101923;
 }
 
 .leg {
     position: absolute;
+    z-index: 2;
     top: 119px;
     width: 20px;
     height: 34px;
-    background: linear-gradient(90deg, #172331, #354657);
     border: 1px solid #52687b;
-    z-index: 2;
+    background: linear-gradient(90deg, #172331, #354657);
 }
 
 .leg.left { left: 35px; transform: rotate(4deg); }
@@ -389,13 +374,13 @@ button { font-family: inherit; }
 
 .boot {
     position: absolute;
+    z-index: 3;
     top: 146px;
     width: 25px;
     height: 9px;
-    background: #0a1119;
     border: 1px solid #526477;
     border-radius: 3px;
-    z-index: 3;
+    background: #0a1119;
 }
 
 .boot.left { left: 31px; }
@@ -403,36 +388,34 @@ button { font-family: inherit; }
 
 .pouch {
     position: absolute;
+    z-index: 4;
     top: 91px;
     left: 72px;
     width: 13px;
     height: 17px;
-    background: #182b3b;
     border: 1px solid #718398;
-    z-index: 4;
+    background: #182b3b;
 }
 
 .enemy .body-shape {
-    background: linear-gradient(90deg, #34252f, #54404a 42%, #17151e 75%);
     border-color: #a45a66;
+    background: linear-gradient(90deg, #34252f, #54404a 42%, #17151e 75%);
 }
 
 .enemy .helmet {
-    background: linear-gradient(135deg, #58404a, #251a24 70%, #0b0b11);
     border-color: #bd6975;
+    background: linear-gradient(135deg, #58404a, #251a24 70%, #0b0b11);
 }
 
 .enemy .helmet::before {
-    background: #fa4856;
     border-color: #ff9aa2;
+    background: #fa4856;
     box-shadow: 0 0 12px #fa3349;
 }
 
 .enemy .shoulder,
 .enemy .arm,
-.enemy .leg {
-    border-color: #8f515c;
-}
+.enemy .leg { border-color: #8f515c; }
 
 .enemy .shoulder {
     background: linear-gradient(135deg, #58313b, #211922);
@@ -443,74 +426,74 @@ button { font-family: inherit; }
     background: linear-gradient(135deg, #422833, #17121a);
 }
 
-/* 무기 외형 */
+/* 무기 */
 
 .weapon-model {
     position: absolute;
+    z-index: 6;
     top: 70px;
     left: 57px;
     width: 59px;
-    height: 15px;
-    z-index: 6;
-    transition: transform .2s, opacity .2s;
+    height: 22px;
+    transition: all .2s;
 }
 
 .weapon-stock {
     position: absolute;
-    left: 0;
     top: 4px;
+    left: 0;
     width: 13px;
     height: 8px;
-    background: #283b4b;
     border: 1px solid #8ba0b2;
+    background: #283b4b;
 }
 
 .weapon-body {
     position: absolute;
-    left: 10px;
     top: 2px;
+    left: 10px;
     width: 31px;
     height: 12px;
-    background: linear-gradient(180deg, #9aaaba, #37495a 60%, #172330);
     border: 1px solid #c1d1df;
+    background: linear-gradient(180deg, #9aaaba, #37495a 60%, #172330);
 }
 
 .weapon-barrel {
     position: absolute;
-    left: 39px;
     top: 5px;
+    left: 39px;
     width: 20px;
     height: 5px;
-    background: #8b9bab;
     border: 1px solid #c6d5e2;
+    background: #8b9bab;
 }
 
 .weapon-scope {
     position: absolute;
-    left: 19px;
     top: -3px;
+    left: 19px;
     width: 11px;
     height: 5px;
-    background: #182432;
     border: 1px solid #8ca0b2;
+    background: #182432;
 }
 
 .weapon-grip {
     position: absolute;
-    left: 24px;
     top: 11px;
+    left: 24px;
     width: 6px;
     height: 10px;
-    background: #263848;
     border: 1px solid #718497;
+    background: #263848;
     transform: rotate(12deg);
 }
 
 .weapon-model.grenade-mode {
-    width: 25px;
-    height: 25px;
     top: 65px;
     left: 75px;
+    width: 25px;
+    height: 25px;
     transform: rotate(-18deg);
 }
 
@@ -518,44 +501,73 @@ button { font-family: inherit; }
 .weapon-model.grenade-mode .weapon-body,
 .weapon-model.grenade-mode .weapon-barrel,
 .weapon-model.grenade-mode .weapon-scope,
-.weapon-model.grenade-mode .weapon-grip {
-    display: none;
-}
+.weapon-model.grenade-mode .weapon-grip { display: none; }
 
 .weapon-model.grenade-mode::before {
     content: "";
     position: absolute;
     inset: 2px;
+    border: 2px solid #c2d0dc;
     border-radius: 40%;
     background: radial-gradient(circle at 30% 25%, #b8c4cc, #566675 55%, #1b2937);
-    border: 2px solid #c2d0dc;
     box-shadow: 0 0 9px #ffad5d66;
 }
 
 .weapon-model.grenade-mode::after {
     content: "";
     position: absolute;
-    left: 8px;
     top: -2px;
+    left: 8px;
     width: 7px;
     height: 5px;
-    background: #e7a66a;
     border: 1px solid #f8d4a8;
+    background: #e7a66a;
 }
 
-.enemy .weapon-model {
-    left: -7px;
-    transform: scaleX(-1);
+.weapon-model.heavy-mode {
+    top: 57px;
+    left: 65px;
+    width: 36px;
+    height: 32px;
+    transform: rotate(-10deg);
 }
+
+.weapon-model.heavy-mode .weapon-stock,
+.weapon-model.heavy-mode .weapon-body,
+.weapon-model.heavy-mode .weapon-barrel,
+.weapon-model.heavy-mode .weapon-scope,
+.weapon-model.heavy-mode .weapon-grip { display: none; }
+
+.weapon-model.heavy-mode::before {
+    content: "";
+    position: absolute;
+    inset: 3px;
+    border: 2px solid #ffb4a2;
+    border-radius: 35%;
+    background: radial-gradient(circle at 30% 25%, #fff1c9, #ff795a 50%, #812536);
+    box-shadow: 0 0 15px #ff593c;
+}
+
+.weapon-model.heavy-mode::after {
+    content: "H";
+    position: absolute;
+    top: 8px;
+    left: 13px;
+    color: white;
+    font-size: 12px;
+    font-weight: 900;
+}
+
+.enemy .weapon-model { left: -7px; }
 
 .enemy .weapon-body {
-    background: linear-gradient(180deg, #a76a73, #54313b 60%, #23151d);
     border-color: #d6a0a6;
+    background: linear-gradient(180deg, #a76a73, #54313b 60%, #23151d);
 }
 
 .enemy .weapon-barrel {
-    background: #9e626d;
     border-color: #d6a0a6;
+    background: #9e626d;
 }
 
 .player.hit, .enemy.hit {
@@ -563,10 +575,9 @@ button { font-family: inherit; }
 }
 
 .player.hit { transform: translateX(-7px); }
-.enemy.hit { transform: translateX(7px); }
+.enemy.hit { transform: scaleX(-1) translateX(-7px); }
 
 .player.attack { animation: recoil .22s ease; }
-.enemy.attack { animation: recoil .22s ease; }
 
 @keyframes recoil {
     0% { translate: 0 0; }
@@ -576,89 +587,86 @@ button { font-family: inherit; }
 
 .projectile {
     position: absolute;
+    z-index: 7;
+    display: none;
     width: 28px;
     height: 4px;
+    border-radius: 4px;
     background: #80d5ff;
     box-shadow: 0 0 13px 4px #318dff;
-    border-radius: 4px;
-    z-index: 5;
-    display: none;
 }
 
 .projectile.grenade {
     width: 14px;
     height: 14px;
-    background: radial-gradient(circle at 30% 25%, #fff0bf, #ff9b55 45%, #a64029);
     border: 1px solid #ffd09a;
     border-radius: 50%;
+    background: radial-gradient(circle at 30% 25%, #fff0bf, #ff9b55 45%, #a64029);
     box-shadow: 0 0 20px 8px #ff5c3588;
 }
 
 .projectile.heavy {
     width: 20px;
     height: 20px;
-    background: radial-gradient(circle, #ffffff, #ffb65a 45%, #fa4856);
     border-radius: 50%;
+    background: radial-gradient(circle, #fff, #ffb65a 45%, #fa4856);
     box-shadow: 0 0 25px 12px #ff653c99;
 }
 
 .blast {
     position: absolute;
+    z-index: 8;
+    display: none;
     width: 24px;
     height: 24px;
     border-radius: 50%;
     background: #ffd7a1;
     box-shadow: 0 0 25px 18px #ff603b, 0 0 65px 35px #ffb34d88;
-    z-index: 6;
-    display: none;
     pointer-events: none;
 }
 
-.floor { z-index: 1; }
-
-/* 하단 패널 */
+/* 하단 상태 패널 */
 
 .bottom {
-    display: grid;
-    grid-template-columns: 190px minmax(0, 1fr);
-    gap: 14px;
-    padding: 14px;
     position: relative;
     z-index: 4;
+    display: grid;
+    grid-template-columns: 190px minmax(0, 1fr);
+    gap: 13px;
+    padding: 13px;
 }
 
 .player-panel {
-    background: #101b28;
+    padding: 13px;
     border: 1px solid #2a4056;
-    padding: 14px;
+    background: #101b28;
 }
 
 .panel-title {
-    font-size: 11px;
-    color: #9cc9ee;
-    letter-spacing: 1.5px;
     margin-bottom: 12px;
+    color: #9cc9ee;
+    font-size: 11px;
+    letter-spacing: 1.5px;
 }
 
 .small-label {
+    margin: 12px 0 6px;
     color: #91a4b8;
     font-size: 10px;
-    margin: 12px 0 6px;
 }
 
 .hp-track, .energy-track {
-    height: 9px;
-    background: #253243;
     display: flex;
     gap: 4px;
+    height: 9px;
     padding: 1px;
+    background: #253243;
 }
 
 .hp-unit {
     flex: 1;
     background: #62baff;
     box-shadow: 0 0 5px #45a6ff77;
-    transition: background .2s;
 }
 
 .hp-unit.lost {
@@ -667,55 +675,55 @@ button { font-family: inherit; }
 }
 
 .energy-fill {
+    width: 0%;
     height: 100%;
     background: #65d8db;
-    width: 0%;
-    transition: width .25s;
+    transition: width .2s;
 }
 
 .weapon {
-    border: 1px solid #344a60;
-    padding: 8px;
-    color: #91a4b8;
-    font-size: 11px;
     margin-top: 6px;
+    padding: 8px;
+    border: 1px solid #344a60;
     background: #142131;
+    color: #91a4b8;
+    font-size: 10px;
     transition: .2s;
 }
 
 .weapon.active {
     border-color: #65baff;
-    color: #ffffff;
     background: #1b344a;
-    box-shadow: inset 3px 0 #65baff, 0 0 12px #2b8dce22;
+    color: white;
+    box-shadow: inset 3px 0 #65baff;
 }
 
 .weapon.grenade-active {
     border-color: #ffad61;
-    color: #ffe0b8;
     background: #3b2a20;
-    box-shadow: inset 3px 0 #ffad61, 0 0 12px #ffad6122;
+    color: #ffe0b8;
+    box-shadow: inset 3px 0 #ffad61;
 }
 
 .weapon.heavy-active {
     border-color: #ff7180;
-    color: #ffd4d9;
     background: #3a2029;
-    box-shadow: inset 3px 0 #ff7180, 0 0 12px #ff526722;
+    color: #ffd4d9;
+    box-shadow: inset 3px 0 #ff7180;
 }
 
 .weapon-hint {
-    color: #738ba2;
-    font-size: 9px;
-    line-height: 1.5;
     margin-top: 8px;
+    color: #8da7bf;
+    font-size: 9px;
+    line-height: 1.6;
 }
 
 .question-panel {
-    background: #0b121d;
-    border: 1px solid #30475e;
-    padding: 17px;
     min-width: 0;
+    padding: 16px;
+    border: 1px solid #30475e;
+    background: #0b121d;
 }
 
 .question-meta {
@@ -724,12 +732,12 @@ button { font-family: inherit; }
     gap: 10px;
     color: #8ebce7;
     font-size: 10px;
-    letter-spacing: 1.2px;
+    letter-spacing: 1px;
 }
 
 .question {
     margin: 13px 0 15px;
-    font-size: 17px;
+    font-size: 16px;
     line-height: 1.6;
     font-weight: 700;
 }
@@ -742,14 +750,13 @@ button { font-family: inherit; }
 
 .answer {
     min-height: 43px;
-    text-align: left;
     padding: 10px 12px;
-    color: #d4dfeb;
-    background: #101b29;
     border: 1px solid #34475d;
+    background: #101b29;
+    color: #d4dfeb;
+    text-align: left;
+    font-size: 12px;
     cursor: pointer;
-    font-size: 13px;
-    transition: .15s;
 }
 
 .answer:hover:not(:disabled) {
@@ -757,10 +764,7 @@ button { font-family: inherit; }
     background: #1b3044;
 }
 
-.answer:disabled {
-    cursor: default;
-    opacity: .7;
-}
+.answer:disabled { cursor: default; opacity: .8; }
 
 .answer.correct {
     border-color: #61d5a0;
@@ -775,38 +779,37 @@ button { font-family: inherit; }
 }
 
 .feedback {
-    min-height: 25px;
-    color: #b2c3d5;
-    font-size: 12px;
+    min-height: 35px;
     margin-top: 12px;
-    line-height: 1.6;
+    color: #b2c3d5;
+    font-size: 11px;
+    line-height: 1.7;
 }
 
 .action-row {
     display: flex;
-    gap: 8px;
     flex-wrap: wrap;
-    margin-top: 10px;
+    gap: 8px;
+    margin-top: 8px;
 }
 
 .action {
+    padding: 10px 13px;
+    border: 1px solid #52728e;
     background: #17293a;
     color: #e8f4ff;
-    border: 1px solid #52728e;
-    padding: 10px 13px;
-    cursor: pointer;
-    font-weight: 700;
     font-size: 11px;
-    letter-spacing: .5px;
+    font-weight: 700;
+    cursor: pointer;
 }
 
 .action:hover:not(:disabled) { background: #244664; }
 .action:disabled { opacity: .35; cursor: not-allowed; }
 
 .status {
-    color: #9eb3c9;
-    font-size: 11px;
     margin-top: 10px;
+    color: #9eb3c9;
+    font-size: 10px;
     line-height: 1.6;
 }
 
@@ -814,14 +817,14 @@ button { font-family: inherit; }
 
 .overlay {
     position: absolute;
-    inset: 0;
     z-index: 20;
-    background: #03070df2;
+    inset: 0;
     display: none;
     align-items: center;
     justify-content: center;
-    text-align: center;
     padding: 20px;
+    background: #03070df2;
+    text-align: center;
 }
 
 .overlay.show { display: flex; }
@@ -829,26 +832,26 @@ button { font-family: inherit; }
 .result-box {
     width: min(500px, 100%);
     padding: 30px 20px;
-    background: #101a27;
     border: 1px solid #536c85;
+    background: #101a27;
     box-shadow: 0 0 60px #1a5b8a33;
 }
 
 .result-title {
+    margin-bottom: 12px;
     font-size: clamp(25px, 5vw, 39px);
     font-weight: 900;
     letter-spacing: 2px;
-    margin-bottom: 12px;
 }
 
 .fail { color: #ff6a79; }
 .win { color: #7bc9ff; }
 
 .result-desc {
+    margin-bottom: 22px;
     color: #c1cfde;
     font-size: 13px;
-    line-height: 1.8;
-    margin-bottom: 22px;
+    line-height: 1.9;
 }
 
 .result-actions {
@@ -860,47 +863,44 @@ button { font-family: inherit; }
 
 .retry, .base-button {
     padding: 13px 18px;
-    cursor: pointer;
+    font-size: 11px;
     font-weight: 800;
     letter-spacing: .7px;
-    font-size: 11px;
+    cursor: pointer;
 }
 
 .retry {
-    background: #193b57;
     border: 1px solid #6abaff;
+    background: #193b57;
     color: #f2f8ff;
 }
 
-.retry:hover { background: #255a80; }
-
 .base-button {
-    background: #17212d;
     border: 1px solid #75869a;
+    background: #17212d;
     color: #e3ebf4;
 }
 
+.retry:hover { background: #255a80; }
 .base-button:hover { background: #2a3a4b; }
 
 @media (max-width: 680px) {
     .game { min-height: 760px; }
-    .topbar { padding: 15px; }
-    .heading { font-size: 17px; }
-    .arena { height: 270px; }
-    .machine { width: 150px; height: 155px; }
-    .machine::before { height: 120px; width: 70px; }
+    .topbar { padding: 14px; }
+    .arena { height: 265px; }
+    .machine { width: 145px; height: 155px; }
+    .machine::before { width: 70px; height: 115px; }
     .fighter { scale: .8; transform-origin: bottom center; }
-    .player { left: 3%; }
-    .enemy { right: 3%; }
+    .player { left: 1%; }
+    .enemy { right: 1%; transform: scaleX(-.8); }
     .bottom { grid-template-columns: 1fr; padding: 9px; }
     .player-panel { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
     .panel-title { grid-column: 1 / -1; margin-bottom: 0; }
     .small-label { margin-top: 4px; }
-    .question { font-size: 15px; }
+    .question { font-size: 14px; }
     .answers { grid-template-columns: 1fr; }
     .enemy-hud { width: 45%; }
-    .kicker { font-size: 9px; }
-    .sub { font-size: 9px; }
+    .kicker, .sub { font-size: 9px; }
 }
 </style>
 </head>
@@ -908,7 +908,6 @@ button { font-family: inherit; }
 <body>
 <div class="game" id="game">
     <div class="grid"></div>
-    <div class="light"></div>
 
     <div class="topbar">
         <div>
@@ -916,7 +915,6 @@ button { font-family: inherit; }
             <div class="heading">BLACK VEIL INTERCEPTION</div>
             <div class="sub">BIOLOGICAL THREAT ELIMINATION</div>
         </div>
-
         <div class="enemy-hud">
             <div class="hud-label">
                 <span>ENEMY INTEGRITY</span>
@@ -928,8 +926,8 @@ button { font-family: inherit; }
 
     <div class="arena" id="arena">
         <div class="machine"></div>
-        <div class="player-name">PLAYER / OPERATIVE</div>
-        <div class="enemy-name">BLACK VEIL / ELITE</div>
+        <div class="unit-label player-label">PLAYER / OPERATIVE</div>
+        <div class="unit-label enemy-label">BLACK VEIL / ELITE</div>
 
         <div class="fighter player" id="player">
             <div class="helmet"></div>
@@ -944,7 +942,6 @@ button { font-family: inherit; }
             <div class="boot left"></div>
             <div class="boot right"></div>
             <div class="pouch"></div>
-
             <div class="weapon-model" id="playerWeapon">
                 <div class="weapon-stock"></div>
                 <div class="weapon-body"></div>
@@ -967,7 +964,6 @@ button { font-family: inherit; }
             <div class="boot left"></div>
             <div class="boot right"></div>
             <div class="pouch"></div>
-
             <div class="weapon-model">
                 <div class="weapon-stock"></div>
                 <div class="weapon-body"></div>
@@ -987,16 +983,12 @@ button { font-family: inherit; }
             <div class="panel-title">OPERATIVE STATUS</div>
 
             <div>
-                <div class="small-label">
-                    PLAYER HP <span id="hpCount">4 / 4</span>
-                </div>
+                <div class="small-label">PLAYER HP <span id="hpCount">4 / 4</span></div>
                 <div class="hp-track" id="hpBars"></div>
             </div>
 
             <div>
-                <div class="small-label">
-                    COMBO <span id="comboCount">0</span> / 2
-                </div>
+                <div class="small-label">COMBO <span id="comboCount">0</span> / 2</div>
                 <div class="energy-track">
                     <div class="energy-fill" id="energyFill"></div>
                 </div>
@@ -1004,18 +996,10 @@ button { font-family: inherit; }
 
             <div style="grid-column:1 / -1;">
                 <div class="small-label">EQUIPPED WEAPONS</div>
-                <div class="weapon active" id="rifleSlot">
-                    1 — PULSE RIFLE
-                </div>
-                <div class="weapon" id="grenadeSlot">
-                    2 — GRENADE / 2 COMBO
-                </div>
-                <div class="weapon" id="heavySlot">
-                    3 — HEAVY BOMB / PERFECT
-                </div>
-                <div class="weapon-hint" id="weaponHint">
-                    기본 무기 장착 중
-                </div>
+                <div class="weapon active" id="rifleSlot">1 — PULSE RIFLE</div>
+                <div class="weapon" id="grenadeSlot">2 — GRENADE / 2 COMBO</div>
+                <div class="weapon" id="heavySlot">3 — HEAVY BOMB / PERFECT</div>
+                <div class="weapon-hint" id="weaponHint">PULSE RIFLE 장착 중</div>
             </div>
         </div>
 
@@ -1024,46 +1008,33 @@ button { font-family: inherit; }
                 <span id="questionNumber">MISSION QUESTION 01</span>
                 <span id="accuracy">CORRECT 0 · WRONG 0</span>
             </div>
-
             <div class="question" id="questionText"></div>
             <div class="answers" id="answers"></div>
-
-            <div class="feedback" id="feedback">
-                문제를 풀어 작전을 진행하십시오.
-            </div>
-
+            <div class="feedback" id="feedback">문제를 풀어 작전을 진행하십시오.</div>
             <div class="action-row">
-                <button class="action" id="nextButton" disabled>
-                    NEXT QUESTION
-                </button>
+                <button class="action" id="nextButton" disabled>NEXT QUESTION</button>
             </div>
-
             <div class="status" id="status">
-                연속 2정답: 수류탄 공격 / 오답 4회: 임무 실패
+                연속 2정답: 수류탄 공격 / 체력 소진: 임무 실패
             </div>
         </div>
     </div>
 
     <div class="overlay" id="overlay">
         <div class="result-box">
-            <div class="result-title" id="resultTitle">
-                MISSION FAILED
-            </div>
+            <div class="result-title" id="resultTitle">MISSION FAILED</div>
             <div class="result-desc" id="resultDesc"></div>
-
             <div class="result-actions">
-                <button class="retry" onclick="restartGame()">
-                    RETRY MISSION
-                </button>
-                <button class="base-button" onclick="returnToBase()">
-                    RETURN TO BASE
-                </button>
+                <button class="retry" id="retryButton">RETRY MISSION</button>
+                <button class="base-button" id="baseButton">RETURN TO BASE</button>
             </div>
         </div>
     </div>
 </div>
 
 <script>
+"use strict";
+
 const questionBank = [
     {
         q: "세포에서 ATP 생성과 밀접한 관련이 있는 소기관은 무엇인가요?",
@@ -1102,13 +1073,13 @@ const questionBank = [
         explain: "리소좀은 여러 분해 효소를 이용해 세포 내 물질을 분해합니다."
     },
     {
-        q: "세포질에서 물질이 이동하고 여러 반응이 일어나는 바탕이 되는 것은 무엇인가요?",
+        q: "세포질에서 다양한 대사 반응이 일어나는 영역은 무엇인가요?",
         a: ["세포질", "핵막", "세포벽", "염색체"],
         correct: 0,
         explain: "세포질은 세포막 안쪽에서 핵을 제외한 영역으로, 다양한 대사 반응이 일어납니다."
     },
     {
-        q: "세포 안에서 물질의 이동과 세포 형태 유지에 관여하는 구조는 무엇인가요?",
+        q: "세포의 형태 유지와 세포 내 구조물 이동에 관여하는 것은 무엇인가요?",
         a: ["세포골격", "리소좀", "핵소체", "골지체"],
         correct: 0,
         explain: "세포골격은 세포의 형태를 유지하고 세포 내 구조물의 이동에도 관여합니다."
@@ -1126,18 +1097,20 @@ const questionBank = [
         explain: "포도당은 세포 호흡에서 분해되어 ATP 생성에 필요한 에너지를 제공합니다."
     },
     {
-        q: "거친면 소포체 표면에 리보솜이 붙어 있는 이유와 가장 관련이 깊은 것은 무엇인가요?",
+        q: "거친면 소포체 표면에 리보솜이 붙어 있는 이유는 무엇인가요?",
         a: ["단백질 합성", "DNA 복제만", "ATP 직접 저장", "세포 분열 중단"],
         correct: 0,
         explain: "거친면 소포체의 리보솜은 주로 막 단백질이나 분비 단백질 합성에 관여합니다."
     },
     {
-        q: "세포막을 통한 물질 이동 중 농도 기울기를 따라 에너지 투입 없이 이동하는 것은 무엇인가요?",
+        q: "농도 기울기를 따라 에너지 투입 없이 일어나는 물질 이동은 무엇인가요?",
         a: ["능동 수송", "확산", "소낭 수송만", "DNA 복제"],
         correct: 1,
         explain: "확산은 입자가 농도가 높은 곳에서 낮은 곳으로 순이동하는 현상입니다."
     }
 ];
+
+const $ = id => document.getElementById(id);
 
 let questions = [];
 let questionIndex = 0;
@@ -1148,9 +1121,8 @@ let correctTotal = 0;
 let wrongTotal = 0;
 let locked = false;
 let finished = false;
-let heavyBombUsed = false;
-
-const $ = id => document.getElementById(id);
+let perfectRun = true;
+let actionToken = 0;
 
 function shuffle(array) {
     const result = [...array];
@@ -1164,23 +1136,22 @@ function shuffle(array) {
 }
 
 function setWeapon(type) {
-    const weapon = $("playerWeapon");
+    const model = $("playerWeapon");
 
-    weapon.classList.remove("grenade-mode");
+    model.classList.remove("grenade-mode", "heavy-mode");
+
     $("rifleSlot").className = "weapon";
     $("grenadeSlot").className = "weapon";
     $("heavySlot").className = "weapon";
 
     if (type === "grenade") {
-        weapon.classList.add("grenade-mode");
+        model.classList.add("grenade-mode");
         $("grenadeSlot").classList.add("grenade-active");
-        $("weaponHint").textContent =
-            "GRENADE 장착 · 연속 정답 공격";
+        $("weaponHint").textContent = "GRENADE 장착 · 연속 2정답 공격";
     } else if (type === "heavy") {
-        weapon.classList.add("grenade-mode");
+        model.classList.add("heavy-mode");
         $("heavySlot").classList.add("heavy-active");
-        $("weaponHint").textContent =
-            "HEAVY BOMB 발동 · 완벽한 작전 수행";
+        $("weaponHint").textContent = "HEAVY BOMB 발동 · 완벽 작전";
     } else {
         $("rifleSlot").classList.add("active");
         $("weaponHint").textContent = "PULSE RIFLE 장착 중";
@@ -1192,8 +1163,7 @@ function renderBars() {
 
     for (let i = 0; i < 10; i++) {
         const cell = document.createElement("div");
-        cell.className =
-            "enemy-cell" + (i >= enemyHP ? " empty" : "");
+        cell.className = "enemy-cell" + (i >= enemyHP ? " empty" : "");
         $("enemyBars").appendChild(cell);
     }
 
@@ -1203,15 +1173,13 @@ function renderBars() {
 
     for (let i = 0; i < 4; i++) {
         const cell = document.createElement("div");
-        cell.className =
-            "hp-unit" + (i >= playerHP ? " lost" : "");
+        cell.className = "hp-unit" + (i >= playerHP ? " lost" : "");
         $("hpBars").appendChild(cell);
     }
 
     $("hpCount").textContent = `${playerHP} / 4`;
     $("comboCount").textContent = combo;
     $("energyFill").style.width = `${combo * 50}%`;
-
     $("accuracy").textContent =
         `CORRECT ${correctTotal} · WRONG ${wrongTotal}`;
 }
@@ -1237,19 +1205,15 @@ function loadQuestion() {
 
     item.a.forEach((answer, index) => {
         const button = document.createElement("button");
-
         button.className = "answer";
-        button.textContent =
-            `${String.fromCharCode(65 + index)}. ${answer}`;
-
-        button.onclick = () => submitAnswer(index);
-
+        button.textContent = `${String.fromCharCode(65 + index)}. ${answer}`;
+        button.addEventListener("click", () => submitAnswer(index));
         $("answers").appendChild(button);
     });
 }
 
-function animateShot(type) {
-    if (finished) return;
+function animateShot(type, token) {
+    if (finished || token !== actionToken) return;
 
     const projectile = $("projectile");
     const arena = $("arena");
@@ -1282,7 +1246,7 @@ function animateShot(type) {
     const start = performance.now();
 
     function step(now) {
-        if (finished) {
+        if (finished || token !== actionToken) {
             projectile.style.display = "none";
             return;
         }
@@ -1299,7 +1263,6 @@ function animateShot(type) {
 
         projectile.style.left =
             `${startX + (endX - startX) * progress}px`;
-
         projectile.style.top = `${startY + curve}px`;
 
         if (progress < 1) {
@@ -1308,9 +1271,10 @@ function animateShot(type) {
             projectile.style.display = "none";
 
             if (type === "heavy" || type === "grenade") {
-                showBlast(endX, startY, type);
+                showBlast(endX, startY, type, token);
             } else {
-                hitEnemy(2);
+                hitEnemy(1);
+                finishAnswerAction();
             }
         }
     }
@@ -1318,11 +1282,10 @@ function animateShot(type) {
     requestAnimationFrame(step);
 }
 
-function showBlast(x, y, type) {
-    if (finished) return;
+function showBlast(x, y, type, token) {
+    if (finished || token !== actionToken) return;
 
     const blast = $("blast");
-
     blast.style.left = `${x - 10}px`;
     blast.style.top = `${y - 10}px`;
     blast.style.display = "block";
@@ -1341,21 +1304,21 @@ function showBlast(x, y, type) {
 
     if (type === "heavy") {
         $("feedback").textContent =
-            "HEAVY BOMB IMPACT! 적의 방어선이 붕괴합니다.";
+            "HEAVY BOMB IMPACT! 완벽한 작전 수행.";
     }
 
-    setTimeout(() => {
+    window.setTimeout(() => {
+        if (finished || token !== actionToken) return;
+
         blast.style.display = "none";
 
-        if (finished) return;
-
         if (type === "heavy") {
-            // 최초 10문제 전부 정답이면 적 체력을 모두 소진
             enemyHP = 0;
             renderBars();
             endGame(true);
         } else {
             hitEnemy(2);
+            finishAnswerAction();
         }
     }, type === "heavy" ? 650 : 420);
 }
@@ -1365,7 +1328,7 @@ function hitEnemy(damage) {
 
     $("enemy").classList.add("hit");
 
-    setTimeout(() => {
+    window.setTimeout(() => {
         $("enemy").classList.remove("hit");
     }, 220);
 
@@ -1377,71 +1340,78 @@ function hitEnemy(damage) {
     }
 }
 
+function finishAnswerAction() {
+    if (finished) return;
+    $("nextButton").disabled = false;
+}
+
 function submitAnswer(selected) {
     if (locked || finished) return;
 
     locked = true;
+    const token = ++actionToken;
 
     const item = questions[questionIndex];
     const buttons = [...$("answers").querySelectorAll("button")];
 
-    buttons.forEach(button => button.disabled = true);
+    buttons.forEach(button => {
+        button.disabled = true;
+    });
 
     if (selected === item.correct) {
         correctTotal++;
         combo++;
-
         buttons[selected].classList.add("correct");
 
+        // 최초 10문제 모두 정답이면 대형 폭탄으로 즉시 승리
         if (
             questionIndex === 9 &&
+            correctTotal === 10 &&
             wrongTotal === 0 &&
-            correctTotal === 10
+            perfectRun
         ) {
-            // 완벽한 10문제 정답: 대형 폭탄
             combo = 0;
-            heavyBombUsed = true;
-
             setWeapon("heavy");
             renderBars();
 
             $("feedback").textContent =
-                `PERFECT CLEAR! 대형 폭탄 공격을 준비합니다. ${item.explain}`;
+                `PERFECT CLEAR! 대형 폭탄을 발동합니다. ${item.explain}`;
 
             $("nextButton").disabled = true;
 
-            setTimeout(() => {
-                if (!finished) {
-                    animateShot("heavy");
+            window.setTimeout(() => {
+                if (!finished && token === actionToken) {
+                    animateShot("heavy", token);
                 }
-            }, 400);
+            }, 350);
 
             return;
         }
 
         if (combo >= 2) {
             combo = 0;
-
             setWeapon("grenade");
             renderBars();
 
             $("feedback").textContent =
-                `연속 2정답! GRENADE로 전환합니다. ${item.explain}`;
+                `연속 2정답! GRENADE 발사 · 적 체력 2칸 감소. ${item.explain}`;
 
-            animateShot("grenade");
+            $("nextButton").disabled = true;
+            animateShot("grenade", token);
         } else {
             setWeapon("rifle");
             renderBars();
 
             $("feedback").textContent =
-                `정답입니다. PULSE RIFLE 발사! ${item.explain}`;
+                `정답입니다. PULSE RIFLE 발사 · 적 체력 1칸 감소. ${item.explain}`;
 
-            animateShot("rifle");
+            $("nextButton").disabled = true;
+            animateShot("rifle", token);
         }
     } else {
         wrongTotal++;
         combo = 0;
-
+        perfectRun = false;
         playerHP = Math.max(0, playerHP - 1);
 
         buttons[selected].classList.add("wrong");
@@ -1452,28 +1422,28 @@ function submitAnswer(selected) {
 
         $("player").classList.add("hit");
 
-        setTimeout(() => {
+        window.setTimeout(() => {
             $("player").classList.remove("hit");
         }, 250);
 
         $("feedback").textContent =
-            `오답입니다. 플레이어 HP -1. 콤보가 초기화됩니다. ${item.explain}`;
+            `오답입니다. 플레이어 HP -1, 콤보 초기화. ${item.explain}`;
 
         if (playerHP <= 0) {
             $("nextButton").disabled = true;
-
-            setTimeout(() => endGame(false), 450);
+            window.setTimeout(() => endGame(false), 300);
             return;
         }
-    }
 
-    $("nextButton").disabled = false;
+        $("nextButton").disabled = false;
+    }
 }
 
 function endGame(victory) {
     if (finished) return;
 
     finished = true;
+    actionToken++;
 
     $("overlay").classList.add("show");
 
@@ -1492,6 +1462,8 @@ function endGame(victory) {
            재정비 후 다시 작전을 시작하십시오.`;
 
     $("nextButton").disabled = true;
+    $("projectile").style.display = "none";
+    $("blast").style.display = "none";
 
     [...$("answers").querySelectorAll("button")].forEach(button => {
         button.disabled = true;
@@ -1499,6 +1471,8 @@ function endGame(victory) {
 }
 
 function restartGame() {
+    actionToken++;
+
     questionIndex = 0;
     playerHP = 4;
     enemyHP = 10;
@@ -1507,7 +1481,7 @@ function restartGame() {
     wrongTotal = 0;
     locked = false;
     finished = false;
-    heavyBombUsed = false;
+    perfectRun = true;
 
     questions = shuffle(questionBank);
 
@@ -1525,12 +1499,11 @@ function restartGame() {
 
 function returnToBase() {
     /*
-      Streamlit의 기본 페이지(app.py)가 앱의 루트 경로인 경우
-      부모 창을 루트로 이동해 본부 화면을 다시 엽니다.
+      Streamlit 앱의 기본 페이지가 루트 경로에 있는 일반적인 배포 구조입니다.
+      iframe 내부가 아니라 부모 창을 이동합니다.
     */
-    window.parent.location.assign(
-        new URL("/", window.parent.location.href).href
-    );
+    const baseUrl = new URL("/", window.parent.location.origin);
+    window.parent.location.assign(baseUrl.href);
 }
 
 $("nextButton").addEventListener("click", () => {
@@ -1540,11 +1513,14 @@ $("nextButton").addEventListener("click", () => {
     loadQuestion();
 });
 
+$("retryButton").addEventListener("click", restartGame);
+$("baseButton").addEventListener("click", returnToBase);
+
 restartGame();
 </script>
 </body>
 </html>
 """
 
-components.html(game_html, height=735, scrolling=False)
+components.html(game_html, height=900, scrolling=True)
 ```
