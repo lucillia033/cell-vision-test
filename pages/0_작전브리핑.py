@@ -217,57 +217,6 @@ html, body, [class*="css"] {
     color: #ffffff;
 }
 
-.section-label {
-    color: var(--cyan);
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 2px;
-    padding: 12px 0;
-    margin: 30px 0 14px;
-    border-bottom: 1px solid var(--line);
-}
-
-.objectives-grid {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 16px;
-    margin-top: 18px;
-}
-
-.objective {
-    min-width: 0;
-    min-height: 180px;
-    height: 100%;
-    box-sizing: border-box;
-    padding: 23px;
-    background: linear-gradient(145deg, #0c1c29, #07111a);
-    border: 1px solid #294554;
-    border-top: 2px solid #456b7e;
-}
-
-.objective-number {
-    color: var(--cyan);
-    font-size: 12px;
-    font-weight: 700;
-    letter-spacing: 2px;
-    margin-bottom: 22px;
-}
-
-.objective-title {
-    color: #edf8fc;
-    font-family: 'Noto Sans KR', sans-serif;
-    font-size: 19px;
-    font-weight: 900;
-    margin-bottom: 12px;
-}
-
-.objective-text {
-    color: #91aab8;
-    font-family: 'Noto Sans KR', sans-serif;
-    font-size: 13px;
-    line-height: 1.9;
-}
-
 .directive {
     display: grid;
     grid-template-columns: minmax(130px, .7fr) 3fr;
@@ -345,14 +294,6 @@ div[data-testid="stButton"] > button:hover {
         letter-spacing: -1px;
     }
 
-    .objectives-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .objective {
-        min-height: auto;
-    }
-
     .directive {
         grid-template-columns: 1fr;
         gap: 12px;
@@ -389,7 +330,7 @@ st.html("""
 """)
 
 # =========================================================
-# 4. 메인 작전 브리핑 + 작전 목표
+# 4. 메인 작전 브리핑
 # =========================================================
 
 st.html("""
@@ -429,38 +370,6 @@ st.html("""
             <strong>정보 없이 돌입하지 마라.</strong>
             먼저 분석실에서 자료를 확보하고, 학습을 마친 뒤 최종 작전에 진입해라.
             네가 확보한 지식이 임무의 성패를 결정한다.
-        </div>
-
-        <div class="section-label">
-            MISSION OBJECTIVES // 작전 목표
-        </div>
-
-        <div class="objectives-grid">
-            <div class="objective">
-                <div class="objective-number">OBJECTIVE / 01</div>
-                <div class="objective-title">정보 확보</div>
-                <div class="objective-text">
-                    세포 전체 구조를 확인하고 핵심 소기관의 위치와 특징을 파악해라.
-                </div>
-            </div>
-
-            <div class="objective">
-                <div class="objective-number">OBJECTIVE / 02</div>
-                <div class="objective-title">기능 분석</div>
-                <div class="objective-text">
-                    각 소기관의 역할을 학습하고 단백질 합성, 물질 수송,
-                    에너지 전환의 연결 관계를 이해해라.
-                </div>
-            </div>
-
-            <div class="objective">
-                <div class="objective-number">OBJECTIVE / 03</div>
-                <div class="objective-title">최종 작전</div>
-                <div class="objective-text">
-                    확보한 생물학적 지식을 활용해 최종 작전의 문제를 해결해라.
-                    준비가 끝났다면 임무를 완수해라.
-                </div>
-            </div>
         </div>
     </div>
 </div>
