@@ -15,9 +15,11 @@ st.markdown(
     [data-testid="stHeader"] {
         background: #070C13;
     }
+
     [data-testid="stSidebar"] {
         background: #101923;
     }
+
     .block-container {
         padding-top: 1rem;
         padding-bottom: 1rem;
@@ -67,7 +69,7 @@ button { font-family: inherit; }
 .game {
     position: relative;
     width: 100%;
-    min-height: 720px;
+    min-height: 700px;
     overflow: hidden;
     border: 1px solid #293d51;
     border-radius: 10px;
@@ -79,13 +81,12 @@ button { font-family: inherit; }
 .grid {
     position: absolute;
     inset: 0;
-    opacity: .14;
+    opacity: .13;
     pointer-events: none;
     background-image:
         linear-gradient(#5c8cb1 1px, transparent 1px),
         linear-gradient(90deg, #5c8cb1 1px, transparent 1px);
     background-size: 42px 42px;
-    mask-image: linear-gradient(to bottom, black, transparent 90%);
 }
 
 .topbar {
@@ -94,8 +95,8 @@ button { font-family: inherit; }
     display: flex;
     justify-content: space-between;
     align-items: center;
-    gap: 18px;
-    padding: 19px 22px 15px;
+    gap: 16px;
+    padding: 18px 22px;
 }
 
 .kicker {
@@ -143,7 +144,6 @@ button { font-family: inherit; }
     flex: 1;
     background: #e24e5d;
     box-shadow: 0 0 6px #a72c3b66;
-    transition: background .2s;
 }
 
 .enemy-cell.empty {
@@ -151,11 +151,9 @@ button { font-family: inherit; }
     box-shadow: none;
 }
 
-/* 전투 구역 */
-
 .arena {
     position: relative;
-    height: 310px;
+    height: 300px;
     overflow: hidden;
     border-top: 1px solid #233548;
     border-bottom: 1px solid #314358;
@@ -168,7 +166,7 @@ button { font-family: inherit; }
     position: absolute;
     left: 50%;
     top: 15px;
-    width: 205px;
+    width: 190px;
     height: 205px;
     transform: translateX(-50%);
     border: 2px solid #32648c88;
@@ -182,8 +180,8 @@ button { font-family: inherit; }
     position: absolute;
     left: 50%;
     top: 12px;
-    width: 90px;
-    height: 155px;
+    width: 80px;
+    height: 150px;
     transform: translateX(-50%);
     border: 3px solid #69baf2;
     border-radius: 50%;
@@ -208,7 +206,7 @@ button { font-family: inherit; }
     bottom: 0;
     left: 0;
     right: 0;
-    height: 48px;
+    height: 45px;
     border-top: 2px solid #476580;
     background: linear-gradient(180deg, #1c2b3b, #070b11);
 }
@@ -225,7 +223,7 @@ button { font-family: inherit; }
 
 .unit-label {
     position: absolute;
-    bottom: 190px;
+    bottom: 185px;
     z-index: 4;
     color: #a9c7df;
     font-size: 9px;
@@ -236,12 +234,10 @@ button { font-family: inherit; }
 .player-label { left: 5%; }
 .enemy-label { right: 5%; color: #e59aa4; }
 
-/* 전술 캐릭터 */
-
 .fighter {
     position: absolute;
     z-index: 3;
-    bottom: 37px;
+    bottom: 34px;
     width: 112px;
     height: 158px;
 }
@@ -270,18 +266,6 @@ button { font-family: inherit; }
     height: 34px;
     border: 1px solid #6d8296;
     background: linear-gradient(135deg, #273c4f, #111b27);
-}
-
-.body-shape::after {
-    content: "";
-    position: absolute;
-    top: 8px;
-    left: 20px;
-    width: 8px;
-    height: 46px;
-    border-left: 1px solid #8295a8;
-    border-right: 1px solid #8295a8;
-    background: #101a25;
 }
 
 .helmet {
@@ -426,8 +410,6 @@ button { font-family: inherit; }
     background: linear-gradient(135deg, #422833, #17121a);
 }
 
-/* 무기 */
-
 .weapon-model {
     position: absolute;
     z-index: 6;
@@ -435,7 +417,6 @@ button { font-family: inherit; }
     left: 57px;
     width: 59px;
     height: 22px;
-    transition: all .2s;
 }
 
 .weapon-stock {
@@ -489,24 +470,32 @@ button { font-family: inherit; }
     transform: rotate(12deg);
 }
 
-.weapon-model.grenade-mode {
-    top: 65px;
-    left: 75px;
-    width: 25px;
-    height: 25px;
-    transform: rotate(-18deg);
+.weapon-model.grenade-mode,
+.weapon-model.heavy-mode {
+    top: 59px;
+    left: 68px;
+    width: 34px;
+    height: 34px;
+    transform: rotate(-15deg);
 }
 
 .weapon-model.grenade-mode .weapon-stock,
 .weapon-model.grenade-mode .weapon-body,
 .weapon-model.grenade-mode .weapon-barrel,
 .weapon-model.grenade-mode .weapon-scope,
-.weapon-model.grenade-mode .weapon-grip { display: none; }
+.weapon-model.grenade-mode .weapon-grip,
+.weapon-model.heavy-mode .weapon-stock,
+.weapon-model.heavy-mode .weapon-body,
+.weapon-model.heavy-mode .weapon-barrel,
+.weapon-model.heavy-mode .weapon-scope,
+.weapon-model.heavy-mode .weapon-grip {
+    display: none;
+}
 
 .weapon-model.grenade-mode::before {
     content: "";
     position: absolute;
-    inset: 2px;
+    inset: 3px;
     border: 2px solid #c2d0dc;
     border-radius: 40%;
     background: radial-gradient(circle at 30% 25%, #b8c4cc, #566675 55%, #1b2937);
@@ -516,27 +505,13 @@ button { font-family: inherit; }
 .weapon-model.grenade-mode::after {
     content: "";
     position: absolute;
-    top: -2px;
-    left: 8px;
+    top: -1px;
+    left: 12px;
     width: 7px;
     height: 5px;
     border: 1px solid #f8d4a8;
     background: #e7a66a;
 }
-
-.weapon-model.heavy-mode {
-    top: 57px;
-    left: 65px;
-    width: 36px;
-    height: 32px;
-    transform: rotate(-10deg);
-}
-
-.weapon-model.heavy-mode .weapon-stock,
-.weapon-model.heavy-mode .weapon-body,
-.weapon-model.heavy-mode .weapon-barrel,
-.weapon-model.heavy-mode .weapon-scope,
-.weapon-model.heavy-mode .weapon-grip { display: none; }
 
 .weapon-model.heavy-mode::before {
     content: "";
@@ -551,7 +526,7 @@ button { font-family: inherit; }
 .weapon-model.heavy-mode::after {
     content: "H";
     position: absolute;
-    top: 8px;
+    top: 9px;
     left: 13px;
     color: white;
     font-size: 12px;
@@ -574,7 +549,7 @@ button { font-family: inherit; }
     filter: brightness(2.5) drop-shadow(0 0 14px #ff5267);
 }
 
-.player.hit { transform: translateX(-7px); }
+.player.hit { translate: -7px 0; }
 .enemy.hit { transform: scaleX(-1) translateX(-7px); }
 
 .player.attack { animation: recoil .22s ease; }
@@ -594,6 +569,7 @@ button { font-family: inherit; }
     border-radius: 4px;
     background: #80d5ff;
     box-shadow: 0 0 13px 4px #318dff;
+    pointer-events: none;
 }
 
 .projectile.grenade {
@@ -624,8 +600,6 @@ button { font-family: inherit; }
     box-shadow: 0 0 25px 18px #ff603b, 0 0 65px 35px #ffb34d88;
     pointer-events: none;
 }
-
-/* 하단 상태 패널 */
 
 .bottom {
     position: relative;
@@ -688,7 +662,6 @@ button { font-family: inherit; }
     background: #142131;
     color: #91a4b8;
     font-size: 10px;
-    transition: .2s;
 }
 
 .weapon.active {
@@ -813,8 +786,6 @@ button { font-family: inherit; }
     line-height: 1.6;
 }
 
-/* 결과 화면 */
-
 .overlay {
     position: absolute;
     z-index: 20;
@@ -885,11 +856,11 @@ button { font-family: inherit; }
 .base-button:hover { background: #2a3a4b; }
 
 @media (max-width: 680px) {
-    .game { min-height: 760px; }
+    .game { min-height: 750px; }
     .topbar { padding: 14px; }
-    .arena { height: 265px; }
-    .machine { width: 145px; height: 155px; }
-    .machine::before { width: 70px; height: 115px; }
+    .arena { height: 255px; }
+    .machine { width: 140px; height: 155px; }
+    .machine::before { width: 65px; height: 110px; }
     .fighter { scale: .8; transform-origin: bottom center; }
     .player { left: 1%; }
     .enemy { right: 1%; transform: scaleX(-.8); }
@@ -900,7 +871,6 @@ button { font-family: inherit; }
     .question { font-size: 14px; }
     .answers { grid-template-columns: 1fr; }
     .enemy-hud { width: 45%; }
-    .kicker, .sub { font-size: 9px; }
 }
 </style>
 </head>
@@ -1110,7 +1080,7 @@ const questionBank = [
     }
 ];
 
-const $ = id => document.getElementById(id);
+const $ = (id) => document.getElementById(id);
 
 let questions = [];
 let questionIndex = 0;
@@ -1123,6 +1093,22 @@ let locked = false;
 let finished = false;
 let perfectRun = true;
 let actionToken = 0;
+let timers = [];
+
+function later(callback, delay) {
+    const timer = window.setTimeout(() => {
+        timers = timers.filter((item) => item !== timer);
+        callback();
+    }, delay);
+
+    timers.push(timer);
+    return timer;
+}
+
+function clearTimers() {
+    timers.forEach((timer) => window.clearTimeout(timer));
+    timers = [];
+}
 
 function shuffle(array) {
     const result = [...array];
@@ -1139,7 +1125,6 @@ function setWeapon(type) {
     const model = $("playerWeapon");
 
     model.classList.remove("grenade-mode", "heavy-mode");
-
     $("rifleSlot").className = "weapon";
     $("grenadeSlot").className = "weapon";
     $("heavySlot").className = "weapon";
@@ -1168,7 +1153,6 @@ function renderBars() {
     }
 
     $("enemyCount").textContent = `${enemyHP} / 10`;
-
     $("hpBars").innerHTML = "";
 
     for (let i = 0; i < 4; i++) {
@@ -1186,10 +1170,6 @@ function renderBars() {
 
 function loadQuestion() {
     if (finished) return;
-
-    if (questionIndex >= questions.length) {
-        questions = questions.concat(shuffle(questionBank));
-    }
 
     locked = false;
     $("nextButton").disabled = true;
@@ -1252,7 +1232,6 @@ function animateShot(type, token) {
         }
 
         const progress = Math.min((now - start) / duration, 1);
-
         let curve = 0;
 
         if (type === "grenade") {
@@ -1307,7 +1286,7 @@ function showBlast(x, y, type, token) {
             "HEAVY BOMB IMPACT! 완벽한 작전 수행.";
     }
 
-    window.setTimeout(() => {
+    later(() => {
         if (finished || token !== actionToken) return;
 
         blast.style.display = "none";
@@ -1328,7 +1307,7 @@ function hitEnemy(damage) {
 
     $("enemy").classList.add("hit");
 
-    window.setTimeout(() => {
+    later(() => {
         $("enemy").classList.remove("hit");
     }, 220);
 
@@ -1350,11 +1329,10 @@ function submitAnswer(selected) {
 
     locked = true;
     const token = ++actionToken;
-
     const item = questions[questionIndex];
     const buttons = [...$("answers").querySelectorAll("button")];
 
-    buttons.forEach(button => {
+    buttons.forEach((button) => {
         button.disabled = true;
     });
 
@@ -1363,7 +1341,6 @@ function submitAnswer(selected) {
         combo++;
         buttons[selected].classList.add("correct");
 
-        // 최초 10문제 모두 정답이면 대형 폭탄으로 즉시 승리
         if (
             questionIndex === 9 &&
             correctTotal === 10 &&
@@ -1379,7 +1356,7 @@ function submitAnswer(selected) {
 
             $("nextButton").disabled = true;
 
-            window.setTimeout(() => {
+            later(() => {
                 if (!finished && token === actionToken) {
                     animateShot("heavy", token);
                 }
@@ -1422,7 +1399,7 @@ function submitAnswer(selected) {
 
         $("player").classList.add("hit");
 
-        window.setTimeout(() => {
+        later(() => {
             $("player").classList.remove("hit");
         }, 250);
 
@@ -1431,7 +1408,7 @@ function submitAnswer(selected) {
 
         if (playerHP <= 0) {
             $("nextButton").disabled = true;
-            window.setTimeout(() => endGame(false), 300);
+            later(() => endGame(false), 300);
             return;
         }
 
@@ -1443,7 +1420,9 @@ function endGame(victory) {
     if (finished) return;
 
     finished = true;
+    locked = true;
     actionToken++;
+    clearTimers();
 
     $("overlay").classList.add("show");
 
@@ -1465,13 +1444,14 @@ function endGame(victory) {
     $("projectile").style.display = "none";
     $("blast").style.display = "none";
 
-    [...$("answers").querySelectorAll("button")].forEach(button => {
+    [...$("answers").querySelectorAll("button")].forEach((button) => {
         button.disabled = true;
     });
 }
 
 function restartGame() {
     actionToken++;
+    clearTimers();
 
     questionIndex = 0;
     playerHP = 4;
@@ -1499,17 +1479,21 @@ function restartGame() {
 
 function returnToBase() {
     /*
-      Streamlit 앱의 기본 페이지가 루트 경로에 있는 일반적인 배포 구조입니다.
-      iframe 내부가 아니라 부모 창을 이동합니다.
+      Streamlit 앱의 루트 페이지로 이동합니다.
+      앱이 도메인 루트에 배포된 경우 app.py 화면으로 돌아갑니다.
     */
-    const baseUrl = new URL("/", window.parent.location.origin);
-    window.parent.location.assign(baseUrl.href);
+    window.parent.location.assign(window.parent.location.origin + "/");
 }
 
 $("nextButton").addEventListener("click", () => {
     if (finished || locked) return;
 
     questionIndex++;
+
+    if (questionIndex >= questions.length) {
+        questions = questions.concat(shuffle(questionBank));
+    }
+
     loadQuestion();
 });
 
@@ -1523,4 +1507,3 @@ restartGame();
 """
 
 components.html(game_html, height=900, scrolling=True)
-```
