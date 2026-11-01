@@ -6,7 +6,7 @@ import streamlit as st
 # =========================================================
 
 st.set_page_config(
-    page_title="CELL VISION | Operation Cell Shield",
+    page_title="TASK FORCE BIO | Operation Cell Vision",
     layout="wide",
     initial_sidebar_state="collapsed",
 )
@@ -301,7 +301,7 @@ div[data-testid="stButton"] > button:hover {
 
 st.html("""
 <div class="top-strip">
-    <span>CV // BIOLOGICAL OPERATIONS UNIT</span>
+    <span>TASK FORCE BIO // SPECIAL OPERATIONS</span>
     <span>SECURITY: <strong>RESTRICTED</strong></span>
     <span>CHANNEL: <strong>COMMAND BRIEFING</strong></span>
     <span>STATUS: <strong>AWAITING DEPLOYMENT</strong></span>
@@ -309,7 +309,7 @@ st.html("""
 
 <div class="briefing-label">CLASSIFIED // PERSONNEL ONLY</div>
 <div class="briefing-title">MISSION BRIEFING</div>
-<div class="briefing-subtitle">OPERATION CELL SHIELD</div>
+<div class="briefing-subtitle">OPERATION CELL VISION</div>
 """)
 
 # =========================================================
@@ -325,38 +325,54 @@ st.html("""
         </div>
 
         <div class="hero-kicker">
-            TASK FORCE CELL VISION // PERSONNEL BRIEFING
+            TASK FORCE BIO // PERSONNEL BRIEFING
         </div>
 
         <h1 class="hero-title">
             OPERATION<br>
-            <span>CELL SHIELD</span>
+            <span>CELL VISION</span>
         </h1>
 
         <div class="hero-subtitle">
-            KNOW THE CELL. COMPLETE THE MISSION.
+            KNOW THE CELL. STOP THE THREAT.
         </div>
 
         <div class="hero-rule"></div>
 
         <div class="briefing-copy">
-            대원, 긴급 작전이 하달됐다.<br><br>
+            대원, 브리핑에 집중해라.<br><br>
 
-            인체를 구성하는 세포 내부에서 이상 상황이 발생했다.
-            임무를 완수하려면 세포를 구성하는 각 소기관의 구조와 기능을
-            정확하게 파악해야 한다.<br><br>
+            최근 우리 정보부가 적대 세력의 비밀 작전 자료를 확보했다.
+            분석 결과, 그들은 세포 내부의 생명 유지 시스템을 장악하고
+            전체 기능을 마비시키려는 계획을 추진하고 있다.<br><br>
 
-            넌 지금부터 <strong>TASK FORCE CELL VISION</strong>의 작전 요원이다.
-            분석실에 진입해 생물학적 정보를 수집하고, 확보한 자료를 바탕으로
-            최종 작전에 대비해라.<br><br>
+            적의 표적은 세포를 구성하는 핵심 소기관들이다.
+            유전 정보를 관리하는 핵부터 단백질을 합성하는 리보솜,
+            에너지를 생산하는 미토콘드리아까지.
+            각 소기관은 서로 긴밀하게 연결되어 있다.
+            한 부분의 기능이 무너지면 다른 시스템까지 연쇄적으로 영향을 받는다.<br><br>
 
-            핵의 유전 정보 관리부터 리보솜의 단백질 합성,
-            미토콘드리아의 에너지 전환, 소포체와 골지체의 물질 처리까지.
-            각 소기관이 무슨 역할을 맡고 서로 어떻게 협력하는지 분석해라.<br><br>
+            우리가 확보한 자료에는 적의 작전 계획을 파악할 수 있는
+            중요한 정보가 담겨 있다. 하지만 자료는 아직 완전히 분석되지 않았다.
+            소기관의 구조와 기능을 정확히 이해해야만 숨겨진 정보를 해독하고
+            적의 다음 행동을 예측할 수 있다.<br><br>
+
+            <strong>네 임무는 명확하다.</strong><br><br>
+
+            먼저 분석실에 진입해 우리가 확보한 기밀 자료를 조사해라.
+            세포 소기관의 구조와 기능, 그리고 소기관 사이의 상호작용을 학습해라.
+            이 지식은 적의 계획을 분석하기 위한 핵심 정보다.<br><br>
+
+            모든 분석을 마친 뒤 최종 작전에 투입되어라.
+            학습한 지식을 활용해 적의 계략을 무너뜨리고
+            세포 시스템을 지켜내는 것이 최종 목표다.<br><br>
 
             <strong>정보 없이 돌입하지 마라.</strong>
-            먼저 소기관 자료를 학습하고, 모든 준비를 마친 뒤 최종 작전에 진입해라.
-            네가 확보한 지식이 임무의 성패를 결정한다.
+            준비되지 않은 채 진입하면 임무는 실패한다.
+            충분한 정보를 확보하고, 정확하게 분석하고,
+            마지막 순간까지 판단력을 유지해라.<br><br>
+
+            <strong>TASK FORCE BIO는 네 분석 능력을 믿는다.</strong>
         </div>
 
     </div>
@@ -371,9 +387,9 @@ st.html("""
 <div class="directive">
     <div class="directive-label">COMMAND DIRECTIVE</div>
     <div class="directive-text">
-        첫 번째 임무는 분석실에서 소기관 정보를 확보하는 거다.
-        자료를 하나씩 확인하고 각 소기관의 기능과 역할을 숙지해라.
-        학습을 마쳤다면 최종 작전에 도전해라.
+        적의 이름은 CELL REQUIEM이다.
+        그들의 계획을 저지하려면 먼저 우리가 확보한 자료부터 분석해야 한다.
+        분석실에서 소기관 정보를 학습하고, 모든 준비를 마친 뒤 최종 작전에 진입해라.
         명심해라, 대원. 정확한 분석 없이는 임무를 완수할 수 없다.
     </div>
 </div>
@@ -403,8 +419,8 @@ with button_col2:
 
 st.html("""
 <div class="bottom-strip">
-    <span>CELL VISION // BIOLOGICAL OPERATIONS UNIT</span>
-    <span>ALL SYSTEMS STANDING BY</span>
+    <span>TASK FORCE BIO // SPECIAL OPERATIONS</span>
+    <span>OPERATION CELL VISION</span>
     <span>END OF BRIEFING</span>
 </div>
 """)
